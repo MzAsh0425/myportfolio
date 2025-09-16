@@ -83,6 +83,24 @@ h2::after {
     color: var(--accent-color);
 }
 
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    text-align: left;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text h3 {
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
 /* Works Section */
 #works {
     background-color: var(--secondary-color);
@@ -130,6 +148,52 @@ h2::after {
 
 .btn:hover {
     background-color: #0056b3;
+}
+
+/* Analysis Showcase Section */
+#analysis {
+    background-color: #fff;
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: -20px auto 40px;
+    color: #666;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.gallery-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.gallery-caption {
+    padding: 20px;
+}
+
+.gallery-caption h4 {
+    margin-top: 0;
+    color: var(--accent-color);
 }
 
 /* Skills Section */
