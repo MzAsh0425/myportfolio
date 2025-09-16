@@ -12,7 +12,7 @@
     <header class="hero">
         <div class="hero-content">
             <img src="https://via.placeholder.com/150" alt="プロフィール写真" class="profile-pic">
-            <h1>あなたの名前</h1>
+            <h1>Asahi Mizutani</h1>
             <p>データサイエンスを武器に、ユーザーの課題を解決するエンジニア</p>
             <div class="social-links">
                 <a href="https://github.com/MzAsh0425" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
@@ -23,10 +23,22 @@
     <main>
         <section id="about" class="container">
             <h2>About Me</h2>
-            <p>
-                滋賀大学データサイエンス学部に所属し、データ分析や機械学習を学んでいます。個人開発ではSwiftを用いたiOSアプリ「“推し活”サポートグッズ管理アプリ」をApp Storeにリリースし、企画から実装、運用までを一貫して経験しました。研究活動では音楽やスポーツといった分野でのデータサイエンス活用に取り組んでいます。
-                アルバイトでのリーダー講師やサークルでのチームマネージャー経験を通じて培った課題解決能力と、データサイエンスの知見、モバイルアプリ開発スキルを活かし、技術でチームを牽引し、ユーザーに価値を届けられるプロダクト開発に貢献したいです。将来的には事業創造にも挑戦したいと考えています。
-            </p>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>- Professional -</h3>
+                    <p>
+                        滋賀大学データサイエンス学部で、データ分析や機械学習を学んでいます。個人開発ではSwiftを用いたiOSアプリをApp Storeにリリースし、企画から実装、運用までを一貫して経験しました。研究活動では趣味の音楽やスポーツを始めとした様々な分野でのデータサイエンス活用に取り組んでいます。
+                        アルバイトでの予備校リーダー講師や地域のサッカースクールのチームマネージャー経験を通じて培った課題解決能力と、データサイエンスの知見、モバイルアプリ開発スキルを活かし、技術でチームを牽引し、ユーザーに価値を届けられるプロダクト開発に貢献したいです。
+                    </p>
+                </div>
+                <div class="about-text">
+                    <h3>- Personal -</h3>
+                    <p>
+                        幼少期は大阪府で、後に滋賀県で育ちました。サッカーを17年以上、エレクトーンを20年以上続けており、サークルに入るなどして、友人とサッカーをしたり、エレクトーンで好きな曲を弾いたりして過ごすことが多いです。休日はJリーグのガンバ大阪の試合観戦や、櫻坂46のライブに参戦しています。<br>
+                        好きな食べ物は中華料理とコーヒーで、新しいお店を開拓するのが密かな楽しみです。シリコンバレーへの短期留学で海外の文化に触れた経験から、海外での挑戦にも興味があります！
+                    </p>
+                </div>
+            </div>
         </section>
 
         <section id="works" class="container">
@@ -34,16 +46,16 @@
             <div class="project-card">
                 <img src="https://via.placeholder.com/600x400" alt="アプリのスクリーンショット">
                 <div class="project-content">
-                    <h3>“推し活”サポート グッズ管理アプリ</h3>
+                    <h3>“推し活”サポート グッズ管理アプリ『 atsumeru 』</h3>
                     <p class="project-description">
-                        増え続ける“推し”のグッズを効率的に管理・記録したいという自身の課題から開発したiOSアプリです。
+                        増え続ける“推し”のランダムグッズを効率的に管理・記録したいという自身の課題から開発したiOSアプリです。
                     </p>
-                    <p><strong>【主な機能】</strong>グッズの登録・分類機能、検索機能、所持状況の可視化など</p>
-                    <p><strong>【工夫した点】</strong>CoreDataを用いて大量のデータを効率的に管理し、軽快な動作を実現しました。また、ユーザーが直感的に操作できるよう、UI/UXには特にこだわりました。</p>
-                    <p><strong>【使用技術】</strong>Swift, SwiftUI, CoreData, Xcode</p>
+                    <p><strong>【主な機能】</strong>グッズの登録、階層的データ管理、高度な絞り込み機能、検索機能、所持状況の画像生成、App内課金など</p>
+                    <p><strong>【工夫した点】</strong>大量のデータを効率的に管理し、柔軟なアクセスと軽快な動作を実現しました。また、ユーザーが直感的に操作できるよう、UI/UXには特にこだわりました。信頼性の高い課金システムの構築にも取り組みました。</p>
+                    <p><strong>【使用技術】</strong>UI: SwiftUI, Codable, JSON, FileManager, StoreKit 2, Google AdMob SDK (Rewarded Ads), async / await, Task, Git, GitHub, Xcode Simulator, TestFlight, Sandboxなど</p>
                     <div class="project-links">
-                        <a href="あなたのAppStoreのURL" target="_blank" class="btn">App Store</a>
-                        <a href="あなたのGitHubリポジトリのURL" target="_blank" class="btn">GitHub</a>
+                        <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">App Store</a>
+                        <a href="https://atsumeru-app.github.io/index.html" target="_blank" class="btn">アプリ公式サイト</a>
                     </div>
                 </div>
             </div>
@@ -91,25 +103,35 @@
             <h2>Experience & Education</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <h3>滋賀大学 データサイエンス学部</h3>
+                    <h3><a href="https://www.ds.shiga-u.ac.jp" target="_blank" rel="noopener noreferrer">滋賀大学 データサイエンス学部</a></h3>
                     <p>2023年4月 - 2027年3月 (卒業予定)</p>
-                    <p>無線・モバイルネットワークゼミ所属予定。音楽・スポーツデータサイエンスに関する自主ゼミにも参加。</p>
+                    <p><a href="https://www.ds.shiga-u.ac.jp/member/148/" target="_blank" rel="noopener noreferrer">梅津ゼミ</a>所属。音楽・スポーツデータサイエンスに関する自主ゼミにも参加。</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>Safie株式会社 - 2days アイディアソン</h3>
-                    <p>2025年8月</p>
-                    <p>テックリードとして議論を主導し、カメラを用いた新サービスの企画・発表を経験。</p>
+                    <h3>シリコンバレー短期留学</h3>
+                    <p>2023年8月</p>
+                    <p><a href="https://www.econ.shiga-u.ac.jp/topics/keizai20230807-18SV.html" target="_blank" rel="noopener noreferrer">2023 Silicon Valley Innovation & Startup Program</a>。データサイエンスの本場であり起業の聖地であるアメリカ西海岸シリコンバレーにて、起業精神を学習。</p>
                 </div>
-                 <div class="timeline-item">
-                    <h3>株式会社GA technologies - 1day インターン</h3>
+                <div class="timeline-item">
+                    <h3><a href="https://www.ga-tech.co.jp" target="_blank" rel="noopener noreferrer">株式会社GA technologies</a> - <a href="https://newgrads-recruit.ga-tech.co.jp/event-internship/giant-leap/#engineer-01" target="_blank" rel="noopener noreferrer">GIANT LEAP for TECH</a></h3>
                     <p>2025年8月</p>
                     <p>現場のコードレビューを通じて、実務におけるプログラミングの観点を学ぶ。</p>
                 </div>
                 <div class="timeline-item">
+                    <h3><a href="https://safie.jp" target="_blank" rel="noopener noreferrer">Safie株式会社</a> - <a href="https://note.com/safie_/n/n0bbaa37e2b32" target="_blank" rel="noopener norefrrer">2days アイディアソン</a></h3>
+                    <p>2025年8月</p>
+                    <p>テックリードとして議論を主導し、カメラを用いた新サービスの企画・発表を経験。</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>阪神電鉄　データ分析研修　伴走支援業務</h3>
+                    <p>2025年10月 - 2025年12月</p>
+                    <p>学生データサイエンティストとして研修におけるデータ分析をサポート。</p>
+                </div>
+                <div class="timeline-item">
                     <h3>資格・その他</h3>
-                    <p>基本情報技術者試験 (2024年春)</p>
-                    <p>統計検定準1級 (2024年秋)</p>
-                    <p>東京大学松尾研GCI 修了</p>
+                    <p>基本情報技術者試験 合格（2024年春）</p>
+                    <p>統計検定準1級 合格（2024年秋）</p>
+                    <p>東京大学松尾研GCI 修了（2025年春）</p>
                 </div>
             </div>
         </section>
@@ -117,13 +139,13 @@
         <section id="contact" class="container">
             <h2>Contact</h2>
             <p>お仕事のご相談や、カジュアルな情報交換など、お気軽にご連絡ください。</p>
-            <a href="mailto:your_email@example.com" class="btn">your_email@example.com</a>
+            <a href="mailto:your_email@example.com" class="btn">mz.ash.of@gmail.com</a>
         </section>
 
     </main>
 
     <footer>
-        <p>&copy; 2025 あなたの名前. All Rights Reserved.</p>
+        <p>&copy; 2025 Asahi Mizutani. All Rights Reserved.</p>
     </footer>
 
 </body>
