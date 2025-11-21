@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asahi Mizutani | Portfolio</title>
+    <!-- Google Fonts: 現代的なサンセリフ体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           CORE VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --primary-accent: #38bdf8; /* Sky Blue */
+            --secondary-accent: #818cf8; /* Indigo */
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --gold: #fbbf24;
+            --silver: #cbd5e1;
+            --glass-blur: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 動く背景グラデーション */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.15), transparent 25%);
+            z-index: -1;
+            animation: bgPulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* =========================================
+           UTILITIES & ANIMATIONS
+           ========================================= */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--text-sub) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-accent), var(--secondary-accent));
+            border-radius: 2px;
+        }
+
+        /* Glass Card Style */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        /* =========================================
+           HEADER / HERO SECTION
+           ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Glowing ring around profile */
+        .profile-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+            z-index: 1;
+            animation: spin 4s linear infinite;
+            opacity: 0.7;
+            filter: blur(10px);
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+            height: 1.5em; /* typingの高さを確保 */
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-accent);
+            color: #fff;
+            transform: translateY(-3px) rotate(360deg);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+        /* =========================================
+           ABOUT SECTION
+           ========================================= */
+        section { padding: 100px 0; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-card p {
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+
+        /* =========================================
+           WORKS SECTION
+           ========================================= */
+        .project-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0;
+            overflow: hidden;
+            padding: 0; /* Reset padding for image */
+        }
+
+        .project-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .project-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-image-container img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary-accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-right: 15px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--text-sub);
+            box-shadow: none;
+            color: var(--text-sub);
+        }
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        /* =========================================
+           SKILLS SECTION
+           ========================================= */
+        .skills-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: var(--primary-accent);
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-card span {
+            display: block;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* =========================================
+           TIMELINE (EXPERIENCE)
+           ========================================= */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Vertical Line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-accent), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-left: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Dot */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -45px; /* line width (2) + margin (40) + half dot (5) approx */
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 2px solid var(--primary-accent);
+            box-shadow: 0 0 10px var(--primary-accent);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover::after {
+            background: var(--primary-accent);
+            transform: scale(1.3);
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--primary-accent);
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timeline-item h3 {
+            margin-bottom: 5px;
+        }
+        
+        .timeline-item h3 a:hover {
+            text-decoration: underline;
+            color: var(--primary-accent);
+        }
+
+        /* =========================================
+           AWARDS
+           ========================================= */
+        .award-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .award-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .award-icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .award-gold .award-icon-box {
+            color: var(--gold);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+        }
+
+        .award-silver .award-icon-box {
+            color: var(--silver);
+            border: 1px solid rgba(203, 213, 225, 0.3);
+        }
+
+        .award-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .award-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        
+        .bg-gold { background: rgba(251, 191, 36, 0.2); color: var(--gold); }
+        .bg-silver { background: rgba(203, 213, 225, 0.2); color: var(--silver); }
+
+        /* =========================================
+           CONTACT
+           ========================================= */
+        .contact-box {
+            text-align: center;
+            padding: 60px;
+        }
+        
+        .contact-box p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .project-card { grid-template-columns: 1fr; }
+            .project-image-container { min-height: 200px; }
+            .section-title { font-size: 2rem; }
+            .timeline::before { left: 0; }
+            .timeline-item { margin-left: 30px; }
+            .timeline-item::after { left: -36px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="profile-wrapper reveal active">
+                <!-- 画像パスはそのまま -->
+                <img src="IMG_4018.jpeg" alt="Asahi Mizutani" class="profile-pic">
+            </div>
+            <h1 class="reveal">Asahi Mizutani</h1>
+            <!-- Typing Animation Target -->
+            <div class="hero-subtitle reveal">
+                <span id="typewriter"></span>
+            </div>
+            
+            <div class="social-links reveal">
+                <a href="https://github.com/MzAsh0425" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/mz._.ash/" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:mz.ash.of@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down" style="color: var(--text-sub);"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="container">
+            <h2 class="section-title reveal">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card glass-card reveal">
+                    <h3><i class="fas fa-code"></i> Professional</h3>
+                    <p>滋賀大学データサイエンス学部所属。データ分析や機械学習を専攻しつつ、モバイルアプリ開発にも情熱を注いでいます。Swiftを用いたiOSアプリの企画・開発・リリースを一貫して経験。</p>
+                    <p>予備校のリーダー講師やサッカースクールのマネージャー経験で培った「チームを牽引する力」と「技術力」を武器に、ユーザーに価値を届けるエンジニアを目指しています。</p>
+                </div>
+                <div class="about-card glass-card reveal">
+                    <h3><i class="fas fa-music"></i> Personal</h3>
+                    <p>大阪生まれ滋賀育ち。サッカー歴17年、エレクトーン歴20年以上。現在はガンバ大阪の観戦や櫻坂46のライブ参戦がエネルギーの源です。</p>
+                    <p>シリコンバレーへの短期留学で得た刺激を胸に、グローバルな視野で挑戦することにも意欲的。好きなものは中華料理とコーヒー、そして新しい技術に触れる瞬間です。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works" class="container">
+            <h2 class="section-title reveal">Featured Works</h2>
+            <div class="project-card glass-card reveal">
+                <div class="project-image-container">
+                    <img src="atsumeru_宣伝.png" alt="atsumeru app">
+                </div>
+                <div class="project-info">
+                    <h3>atsumeru - “推し活”サポートアプリ</h3>
+                    <p style="color: var(--text-sub); margin-bottom: 15px;">増え続ける“推し”のグッズをスマートに管理・記録。</p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">SwiftUI</span>
+                        <span class="tag">CoreData</span>
+                        <span class="tag">StoreKit 2</span>
+                        <span class="tag">AdMob</span>
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; margin-bottom: 20px; color: var(--text-sub);">
+                        大量データの効率的管理、直感的なUI/UX、そして信頼性の高い課金システムを独自に構築。自身の課題解決から生まれた、ユーザーファーストなiOSアプリです。
+                    </p>
+
+                    <div class="btn-wrapper">
+                        <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">
+                            <i class="fab fa-app-store-ios" style="margin-right: 8px;"></i> App Store
+                        </a>
+                        <a href="https://atsumeru-app.github.io/index.html" target="_blank" class="btn btn-outline">
+                            Official Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="container">
+            <h2 class="section-title reveal">Technical Skills</h2>
+            <div class="skills-wrapper reveal">
+                <div class="skill-card"><i class="fab fa-swift"></i><span>Swift</span></div>
+                <div class="skill-card"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="skill-card"><i class="fab fa-java"></i><span>Java</span></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                <div class="skill-card"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                <div class="skill-card"><i class="fas fa-database"></i><span>MySQL</span></div>
+                <div class="skill-card"><i class="fab fa-r-project"></i><span>R</span></div>
+                <div class="skill-card"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="container">
+            <h2 class="section-title reveal">Experience</h2>
+            <div class="timeline">
+                <!-- Experience Items -->
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2023.04 - Present</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.ds.shiga-u.ac.jp" target="_blank">滋賀大学 データサイエンス学部</a></h3>
+                        <p>梅津ゼミ所属。音楽・スポーツデータサイエンスに関する研究に従事。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10 - 2025.12</span>
+                    <div class="timeline-content">
+                        <h3>阪神電鉄 データ分析研修 伴走支援</h3>
+                        <p>学生データサイエンティストとして、社員研修におけるデータ分析を技術サポート。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.expo2025.or.jp" target="_blank">大阪・関西万博 プロジェクト参画</a></h3>
+                        <p>「ヒトとロボットが共に生きる未来へ」調査・発表。ROBOT＆MOBILITY STATIONにて成果を発表。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.future.co.jp" target="_blank">フューチャー株式会社</a></h3>
+                        <p>ITコンサルタントワークショップ。一気通貫したコンサルティング業務を体験。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.08</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://safie.jp" target="_blank">Safie株式会社</a> アイディアソン</h3>
+                        <p>テックリードとして議論を主導。カメラを用いた新サービス案の企画・発表。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.08</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.ga-tech.co.jp" target="_blank">株式会社GA technologies</a></h3>
+                        <p>GIANT LEAP for TECH。実務レベルのコードレビューを通じたプログラミング研修。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2023.08</span>
+                    <div class="timeline-content">
+                        <h3>シリコンバレー短期留学</h3>
+                        <p>Silicon Valley Innovation & Startup Program。起業の聖地にてイノベーション精神を学習。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">Certifications</span>
+                    <div class="timeline-content">
+                        <h3>資格・その他</h3>
+                        <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                            <li>応用情報技術者試験 合格 (2025)</li>
+                            <li>東京大学松尾研GCI 修了 (2025)</li>
+                            <li>統計検定準1級 (2024)</li>
+                            <li>基本情報技術者試験 (2024)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards" class="container">
+            <h2 class="section-title reveal">Awards</h2>
+            <div class="glass-card award-grid reveal">
+                <div class="award-item award-gold">
+                    <div class="award-icon-box">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="award-info">
+                        <h4>YAMAHA エレクトーンフェスティバル アンサンブル部門 <span class="award-badge bg-gold">Gold Prize x5</span></h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sub);">2013, 2015, 2017, 2019, 2023 (滋賀地区ファイナル)</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">10年以上の継続的なチーム活動により、圧倒的な協調性と表現力を証明。</p>
+                    </div>
+                </div>
+
+                <div class="award-item award-silver">
+                    <div class="award-icon-box">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="award-info">
+                        <h4>YAMAHA エレクトーンフェスティバル ソロ部門 <span class="award-badge bg-silver">Silver Prize</span></h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sub);">2016 (滋賀地区ファイナル)</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">個人の技術研鑽と表現力の追求。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container">
+            <div class="glass-card contact-box reveal">
+                <h2 style="margin-bottom: 20px; color: var(--text-main);">Let's Create the Future</h2>
+                <p>データサイエンスと開発スキルで、新しい価値を共に創りましょう。</p>
+                <a href="mailto:mz.ash.of@gmail.com" class="btn" style="margin: 0;">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Contact Me
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Asahi Mizutani. Designed with passion.</p>
+    </footer>
+
+    <script>
+        // =========================================
+        // SCROLL REVEAL ANIMATION
+        // =========================================
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // =========================================
+        // TYPEWRITER EFFECT (HERO)
+        // =========================================
+        const textElement = document.getElementById('typewriter');
+        const texts = ["Data Scientist", "iOS Developer", "Problem Solver"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                setTimeout(() => {
+                    // Simple backspace effect logic or just pause and next
+                    // For simplicity in single file, just pause then clear
+                    setTimeout(() => {
+                        index = 0;
+                        count++;
+                        type();
+                    }, 2000);
+                }, 100);
+            } else {
+                setTimeout(type, 100);
+            }
+        })();
+    </script>
+</body>
+</html>
