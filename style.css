@@ -257,6 +257,91 @@ h2::after {
     margin-top: 0;
 }
 
+/* Awards Section */
+#awards {
+    background-color: #fff;
+}
+
+.award-card {
+    display: flex;
+    align-items: flex-start;
+    background: var(--secondary-color);
+    padding: 30px;
+    border-radius: 8px;
+    gap: 20px;
+}
+
+.award-icon {
+    font-size: 3rem;
+    color: #ffc107; /* トロフィーの金色 */
+    background: #fff;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.award-content {
+    flex: 1;
+}
+
+.award-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.award-detail {
+    margin-bottom: 20px;
+}
+
+.award-detail:last-child {
+    margin-bottom: 0;
+}
+
+.award-detail h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+}
+
+.gold-text {
+    color: #d4af37; /* 金賞の色 */
+    font-weight: bold;
+}
+
+.silver-text {
+    color: #a0a0a0; /* 銀賞の色 */
+    font-weight: bold;
+}
+
+.award-year {
+    color: #666;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    font-family: monospace; /* 数字を見やすく */
+    font-size: 1.1rem;
+}
+
+.award-desc {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* スマホ用調整 */
+@media (max-width: 600px) {
+    .award-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .award-icon {
+        margin: 0 auto;
+    }
+}
+
 /* Contact Section */
 #contact {
     text-align: center;
