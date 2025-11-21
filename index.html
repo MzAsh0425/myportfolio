@@ -218,5 +218,292 @@
         <p>&copy; 2025 Asahi Mizutani. All Rights Reserved.</p>
     </footer>
 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asahi Mizutani | Portfolio</title>
+    <!-- Google Fonts: 現代的なサンセリフ体 -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="profile-wrapper reveal active">
+                <!-- 画像パスはそのまま -->
+                <img src="IMG_4018.jpeg" alt="Asahi Mizutani" class="profile-pic">
+            </div>
+            <h1 class="reveal">Asahi Mizutani</h1>
+            <!-- Typing Animation Target -->
+            <div class="hero-subtitle reveal">
+                <span id="typewriter"></span>
+            </div>
+            
+            <div class="social-links reveal">
+                <a href="https://github.com/MzAsh0425" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/mz._.ash/" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:mz.ash.of@gmail.com" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down" style="color: var(--text-sub);"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="container">
+            <h2 class="section-title reveal">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card glass-card reveal">
+                    <h3><i class="fas fa-code"></i> Professional</h3>
+                    <p>滋賀大学データサイエンス学部所属。データ分析や機械学習を専攻しつつ、モバイルアプリ開発にも情熱を注いでいます。Swiftを用いたiOSアプリの企画・開発・リリースを一貫して経験。</p>
+                    <p>予備校のリーダー講師やサッカースクールのマネージャー経験で培った「チームを牽引する力」と「技術力」を武器に、ユーザーに価値を届けるエンジニアを目指しています。</p>
+                </div>
+                <div class="about-card glass-card reveal">
+                    <h3><i class="fas fa-music"></i> Personal</h3>
+                    <p>大阪生まれ滋賀育ち。サッカー歴17年、エレクトーン歴20年以上。現在はガンバ大阪の観戦や櫻坂46のライブ参戦がエネルギーの源です。</p>
+                    <p>シリコンバレーへの短期留学で得た刺激を胸に、グローバルな視野で挑戦することにも意欲的。好きなものは中華料理とコーヒー、そして新しい技術に触れる瞬間です。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works" class="container">
+            <h2 class="section-title reveal">Featured Works</h2>
+            <div class="project-card glass-card reveal">
+                <div class="project-image-container">
+                    <img src="atsumeru_宣伝.png" alt="atsumeru app">
+                </div>
+                <div class="project-info">
+                    <h3>atsumeru - “推し活”サポートアプリ</h3>
+                    <p style="color: var(--text-sub); margin-bottom: 15px;">増え続ける“推し”のグッズをスマートに管理・記録。</p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">SwiftUI</span>
+                        <span class="tag">CoreData</span>
+                        <span class="tag">StoreKit 2</span>
+                        <span class="tag">AdMob</span>
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; margin-bottom: 20px; color: var(--text-sub);">
+                        大量データの効率的管理、直感的なUI/UX、そして信頼性の高い課金システムを独自に構築。自身の課題解決から生まれた、ユーザーファーストなiOSアプリです。
+                    </p>
+
+                    <div class="btn-wrapper">
+                        <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">
+                            <i class="fab fa-app-store-ios" style="margin-right: 8px;"></i> App Store
+                        </a>
+                        <a href="https://atsumeru-app.github.io/index.html" target="_blank" class="btn btn-outline">
+                            Official Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="container">
+            <h2 class="section-title reveal">Technical Skills</h2>
+            <div class="skills-wrapper reveal">
+                <div class="skill-card"><i class="fab fa-swift"></i><span>Swift</span></div>
+                <div class="skill-card"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="skill-card"><i class="fab fa-java"></i><span>Java</span></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                <div class="skill-card"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                <div class="skill-card"><i class="fas fa-database"></i><span>MySQL</span></div>
+                <div class="skill-card"><i class="fab fa-r-project"></i><span>R</span></div>
+                <div class="skill-card"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="container">
+            <h2 class="section-title reveal">Experience</h2>
+            <div class="timeline">
+                <!-- Experience Items -->
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2023.04 - Present</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.ds.shiga-u.ac.jp" target="_blank">滋賀大学 データサイエンス学部</a></h3>
+                        <p>梅津ゼミ所属。音楽・スポーツデータサイエンスに関する研究に従事。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10 - 2025.12</span>
+                    <div class="timeline-content">
+                        <h3>阪神電鉄 データ分析研修 伴走支援</h3>
+                        <p>学生データサイエンティストとして、社員研修におけるデータ分析を技術サポート。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.expo2025.or.jp" target="_blank">大阪・関西万博 プロジェクト参画</a></h3>
+                        <p>「ヒトとロボットが共に生きる未来へ」調査・発表。ROBOT＆MOBILITY STATIONにて成果を発表。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.10</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.future.co.jp" target="_blank">フューチャー株式会社</a></h3>
+                        <p>ITコンサルタントワークショップ。一気通貫したコンサルティング業務を体験。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.08</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://safie.jp" target="_blank">Safie株式会社</a> アイディアソン</h3>
+                        <p>テックリードとして議論を主導。カメラを用いた新サービス案の企画・発表。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2025.08</span>
+                    <div class="timeline-content">
+                        <h3><a href="https://www.ga-tech.co.jp" target="_blank">株式会社GA technologies</a></h3>
+                        <p>GIANT LEAP for TECH。実務レベルのコードレビューを通じたプログラミング研修。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">2023.08</span>
+                    <div class="timeline-content">
+                        <h3>シリコンバレー短期留学</h3>
+                        <p>Silicon Valley Innovation & Startup Program。起業の聖地にてイノベーション精神を学習。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <span class="timeline-date">Certifications</span>
+                    <div class="timeline-content">
+                        <h3>資格・その他</h3>
+                        <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                            <li>応用情報技術者試験 合格 (2025)</li>
+                            <li>東京大学松尾研GCI 修了 (2025)</li>
+                            <li>統計検定準1級 (2024)</li>
+                            <li>基本情報技術者試験 (2024)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards" class="container">
+            <h2 class="section-title reveal">Awards</h2>
+            <div class="glass-card award-grid reveal">
+                <div class="award-item award-gold">
+                    <div class="award-icon-box">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="award-info">
+                        <h4>YAMAHA エレクトーンフェスティバル アンサンブル部門 <span class="award-badge bg-gold">Gold Prize x5</span></h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sub);">2013, 2015, 2017, 2019, 2023 (滋賀地区ファイナル)</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">10年以上の継続的なチーム活動により、圧倒的な協調性と表現力を証明。</p>
+                    </div>
+                </div>
+
+                <div class="award-item award-silver">
+                    <div class="award-icon-box">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="award-info">
+                        <h4>YAMAHA エレクトーンフェスティバル ソロ部門 <span class="award-badge bg-silver">Silver Prize</span></h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sub);">2016 (滋賀地区ファイナル)</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">個人の技術研鑽と表現力の追求。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container">
+            <div class="glass-card contact-box reveal">
+                <h2 style="margin-bottom: 20px; color: var(--text-main);">Let's Create the Future</h2>
+                <p>データサイエンスと開発スキルで、新しい価値を共に創りましょう。</p>
+                <a href="mailto:mz.ash.of@gmail.com" class="btn" style="margin: 0;">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Contact Me
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Asahi Mizutani. Designed with passion.</p>
+    </footer>
+
+    <script>
+        // =========================================
+        // SCROLL REVEAL ANIMATION
+        // =========================================
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // =========================================
+        // TYPEWRITER EFFECT (HERO)
+        // =========================================
+        const textElement = document.getElementById('typewriter');
+        const texts = ["Data Scientist", "iOS Developer", "Problem Solver"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                setTimeout(() => {
+                    // Simple backspace effect logic or just pause and next
+                    // For simplicity in single file, just pause then clear
+                    setTimeout(() => {
+                        index = 0;
+                        count++;
+                        type();
+                    }, 2000);
+                }, 100);
+            } else {
+                setTimeout(type, 100);
+            }
+        })();
+    </script>
+</body>
+</html>
+
 </body>
 </html>
