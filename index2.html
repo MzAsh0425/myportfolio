@@ -350,30 +350,49 @@
         }
 
         /* =========================================
-           AWARDS (Minimal List)
+           AWARDS & EXPERIENCE (Accordion)
            ========================================= */
-        .award-list {
-            border-top: 1px solid var(--glass-border);
+        .award-group {
+            margin-bottom: 60px;
         }
         
-        .award-row {
+        .award-group-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-sub);
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .award-item {
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .award-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
-            border-bottom: 1px solid var(--glass-border);
-            transition: background 0.3s ease;
+            padding: 25px 0;
+            cursor: pointer;
+            transition: background 0.3s ease, padding 0.3s ease;
         }
         
-        .award-row:hover {
+        .award-header:hover {
             background: rgba(255,255,255,0.02);
-            padding-left: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
-        
+
+        .award-header.active .toggle-icon {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
         .award-year {
             font-family: 'Courier New', monospace;
             color: var(--text-sub);
             margin-right: 30px;
+            min-width: 150px;
         }
         
         .award-title {
@@ -382,13 +401,66 @@
             flex-grow: 1;
         }
         
+        /* Hyperlink Styles */
+        .award-link {
+            color: var(--accent);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .award-link i {
+            font-size: 0.7em;
+            opacity: 0.7;
+            transition: transform 0.3s;
+        }
+
+        .award-link:hover {
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        }
+        .award-link:hover i {
+            transform: translate(2px, -2px);
+            opacity: 1;
+        }
+        
+        /* Badges */
         .award-badge {
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            background: rgba(255, 215, 0, 0.1);
-            color: #ffd700;
+            font-size: 0.75rem;
+            padding: 4px 10px;
             border-radius: 4px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+        
+        .badge-univ { border: 1px solid #fff; color: #fff; background: rgba(255,255,255,0.1); }
+        .badge-exp { border: 1px solid var(--accent); color: var(--accent); background: rgba(0,242,255,0.1); }
+        .badge-intern { border: 1px solid var(--accent-2); color: var(--accent-2); background: rgba(112,0,255,0.1); }
+        .badge-qual { border: 1px solid #32CD32; color: #32CD32; background: rgba(50,205,50,0.1); }
+        .badge-gold { border: 1px solid #ffd700; color: #ffd700; background: rgba(255,215,0,0.1); }
+        .badge-silver { border: 1px solid #c0c0c0; color: #c0c0c0; background: rgba(192,192,192,0.1); }
+
+        /* Accordion Details */
+        .award-details {
+            height: 0;
+            overflow: hidden;
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .award-details-inner {
+            padding: 0 0 25px 180px; /* Align with title */
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         /* =========================================
@@ -400,7 +472,12 @@
             .work-item { grid-template-columns: 1fr; }
             .work-img-container { height: 300px; }
             .container { padding: 0 20px; }
-            .award-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            
+            .award-header { flex-wrap: wrap; gap: 10px; }
+            .award-year { min-width: auto; margin-right: 10px; }
+            .award-details-inner { padding: 0 0 20px 0; }
+            .award-badge { margin-right: 10px; }
+            .toggle-icon { margin-left: auto; }
         }
     </style>
 </head>
@@ -526,79 +603,229 @@
             </div>
         </section>
 
-        <!-- AWARDS SECTION -->
-        <section class="container" style="max-width: 900px;">
+        <!-- AWARDS & EXPERIENCE SECTION -->
+        <section class="container" style="max-width: 1000px;">
             <div class="section-header" style="text-align: center;">
-                <span class="section-subtitle">Honors</span>
+                <span class="section-subtitle">Timeline</span>
                 <h2 class="section-title text-reveal">Achievements</h2>
+                <p style="color: var(--text-sub); margin-top: 20px;">Click items to see details</p>
             </div>
 
-            <div class="award-list">
-                <div class="award-row fade-up">
-                    <span class="award-year">2023.04 - 2027.03 (卒業予定)</span>
-                    <span class="award-title"><a href="https://www.ds.shiga-u.ac.jp" target="_blank" rel="noopener noreferrer">滋賀大学 データサイエンス学部</a></span>
-                    <span class="award-badge">Univ</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2023.08</span>
-                    <span class="award-title">シリコンバレー短期留学</span>
-                    <span class="award-badge">Experience</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025.08</span>
-                    <span class="award-title"><a href="https://www.ga-tech.co.jp" target="_blank" rel="noopener noreferrer">株式会社GA technologies</a> - <a href="https://newgrads-recruit.ga-tech.co.jp/event-internship/giant-leap/#engineer-01" target="_blank" rel="noopener noreferrer">GIANT LEAP for TECH</a></span>
-                    <span class="award-badge">Internship</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025.08</span>
-                    <span class="award-title"><a href="https://safie.jp" target="_blank" rel="noopener noreferrer">Safie株式会社</a> - <a href="https://note.com/safie_/n/n0bbaa37e2b32" target="_blank" rel="noopener norefrrer">アイディアソン</a></span>
-                    <span class="award-badge">Internship</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025.10</span>
-                    <span class="award-title"><a href="https://www.future.co.jp" target="_blank" rel="noopener noreferrer">フューチャー株式会社</a> - インターンシップ　ITコンサルタントワークショップ</span>
-                    <span class="award-badge">Internship</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025.10</span>
-                    <span class="award-title"><a href="https://www.expo2025.or.jp" target="_blank" rel="noopener noreferrer">大阪・関西万博</a> - <a href="https://www.shiga-u.ac.jp/37595/" target="_blank" rel="noopener noreferrer">「ヒトとロボットが共に生きる未来へ」調査・発表</a></span>
-                    <span class="award-badge">Experience</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025.10 - 2025.12</span>
-                    <span class="award-title">阪神電鉄　データ分析研修　伴走支援業務</span>
-                    <span class="award-badge">Internship</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2024</span>
-                    <span class="award-title">基本情報技術者試験 合格</span>
-                    <span class="award-badge">Qualified</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2024</span>
-                    <span class="award-title">統計検定準1級 合格</span>
-                    <span class="award-badge">Qualified</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025</span>
-                    <span class="award-title">東京大学松尾研GCI 修了</span>
-                    <span class="award-badge">Qualified</span>
-                </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2025</span>
-                    <span class="award-title">応用情報技術者試験 合格</span>
-                    <span class="award-badge">Qualified</span>
-                </div>
+            <!-- GROUP 1: Experience -->
+            <div class="award-group fade-up">
+                <h3 class="award-group-title">Experience</h3>
                 
-                <div class="award-row fade-up">
-                    <span class="award-year">2023</span>
-                    <span class="award-title">YAMAHA エレクトーンフェスティバル アンサンブル部門</span>
-                    <span class="award-badge">Gold Prize (x5)</span>
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2023.04 - Present</span>
+                        <span class="award-title">
+                            <a href="https://www.ds.shiga-u.ac.jp" target="_blank" class="award-link">
+                                滋賀大学 データサイエンス学部 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-univ">Univ</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            梅津ゼミ所属。無線・モバイルネットワークやセンサーネットワークをテーマとした研究に従事。また、音楽×データサイエンスの自主ゼミなど、学際的なアプローチでの研究活動にも注力。
+                        </div>
+                    </div>
                 </div>
-                <div class="award-row fade-up">
-                    <span class="award-year">2016</span>
-                    <span class="award-title">YAMAHA エレクトーンフェスティバル ソロ部門</span>
-                    <span class="award-badge" style="color: silver; border-color: silver; background: rgba(192,192,192,0.1);">Silver Prize</span>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.10 - 2025.12</span>
+                        <span class="award-title">阪神電鉄 データ分析研修 伴走支援業務</span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            学生データサイエンティストとして、社員研修におけるデータ分析を技術面からサポート。実務データを用いた分析指導やアドバイスを実施。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.10</span>
+                        <span class="award-title">
+                            <a href="https://www.expo2025.or.jp" target="_blank" class="award-link">
+                                大阪・関西万博 プロジェクト <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-exp">Experience</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            「ヒトとロボットが共に生きる未来へ」調査・発表。ROBOT＆MOBILITY STATIONにて、人間とロボットの共生に関する調査結果を発表。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.10</span>
+                        <span class="award-title">
+                            <a href="https://www.future.co.jp" target="_blank" class="award-link">
+                                フューチャー株式会社 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            ITコンサルタントワークショップに参加。課題抽出から提案まで、一気通貫したコンサルティング業務をグループワーク形式で実践。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.08</span>
+                        <span class="award-title">
+                            <a href="https://safie.jp" target="_blank" class="award-link">
+                                Safie株式会社 アイディアソン <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            テックリードとして議論を主導。カメラを用いた新サービス案の企画・発表を経験し、データ活用とサービス設計の知見を深める。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.08</span>
+                        <span class="award-title">
+                            <a href="https://www.ga-tech.co.jp" target="_blank" class="award-link">
+                                GA technologies - GIANT LEAP <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            実務レベルのコードレビューを通じたプログラミング研修。現場エンジニアからのフィードバックを受け、品質の高いコード設計を学ぶ。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2023.08</span>
+                        <span class="award-title">シリコンバレー短期留学</span>
+                        <span class="award-badge badge-exp">Experience</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            Silicon Valley Innovation & Startup Program。起業の聖地にて現地のスタートアップ文化やイノベーション精神を学習。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GROUP 2: Certifications -->
+            <div class="award-group fade-up">
+                <h3 class="award-group-title">Certifications</h3>
+                
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025</span>
+                        <span class="award-title">応用情報技術者試験 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            高度IT人材となるために必要な応用的知識・技能を保有することを証明する国家試験。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025</span>
+                        <span class="award-title">東京大学松尾研GCI 修了</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            東京大学松尾研究室が提供するグローバル消費インテリジェンス寄付講座。データサイエンスと機械学習の実践的なスキルを習得。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2024</span>
+                        <span class="award-title">統計検定準1級 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            統計学の基礎から応用まで、データ分析に必要な数理統計学的知識を証明。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2024</span>
+                        <span class="award-title">基本情報技術者試験 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            ITエンジニアとしての基礎的な知識・技能を証明する国家試験。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GROUP 3: Awards -->
+            <div class="award-group fade-up">
+                <h3 class="award-group-title">Awards</h3>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2013 - 2023</span>
+                        <span class="award-title">YAMAHA エレクトーンフェスティバル アンサンブル部門</span>
+                        <span class="award-badge badge-gold">Gold Prize (x5)</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            2013, 2015, 2017, 2019, 2023年 (滋賀地区ファイナル) 金賞受賞。<br>
+                            10年以上にわたるチーム活動継続により、高度な協調性と表現力を証明。個人のスキルだけでなく、チームとして最高のパフォーマンスを発揮する経験を積む。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2016</span>
+                        <span class="award-title">YAMAHA エレクトーンフェスティバル ソロ部門</span>
+                        <span class="award-badge badge-silver">Silver Prize</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            滋賀地区ファイナル 銀賞受賞。個人の演奏技術と表現力を追求し、成果を残す。
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -645,7 +872,7 @@
         });
 
         // Magnetic Buttons Effect
-        const magneticBtns = document.querySelectorAll('.magnetic-btn, .btn, .work-img-container');
+        const magneticBtns = document.querySelectorAll('.magnetic-btn, .btn, .work-img-container, .award-header');
         magneticBtns.forEach(btn => {
             btn.addEventListener('mouseenter', () => {
                 cursorOutline.style.width = '60px';
@@ -656,21 +883,48 @@
                 cursorOutline.style.width = '40px';
                 cursorOutline.style.height = '40px';
                 cursorOutline.style.backgroundColor = 'transparent';
-                // Reset position
-                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "power2.out" });
+                // Reset position (only for actual buttons)
+                if(!btn.classList.contains('award-header')) {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "power2.out" });
+                }
             });
             
-            // Button follows cursor slightly
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+            // Button follows cursor slightly (Skip for accordion header to avoid layout shift issues)
+            if(!btn.classList.contains('award-header')) {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+                });
+            }
+        });
+
+        // =========================================
+        // 2. ACCORDION LOGIC
+        // =========================================
+        const awardHeaders = document.querySelectorAll('.award-header');
+
+        awardHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                // Toggle active class for rotation
+                this.classList.toggle('active');
+                
+                // Animate Details
+                const details = this.nextElementSibling;
+                
+                if (this.classList.contains('active')) {
+                    gsap.to(details, { height: "auto", duration: 0.4, ease: "power2.out" });
+                    // Fade in content slightly delayed
+                    gsap.to(details.children[0], { opacity: 1, y: 0, duration: 0.4, delay: 0.1 });
+                } else {
+                    gsap.to(details, { height: 0, duration: 0.3, ease: "power2.in" });
+                }
             });
         });
 
         // =========================================
-        // 2. THREE.JS BACKGROUND (The Data Wave)
+        // 3. THREE.JS BACKGROUND (The Data Wave)
         // =========================================
         const initThreeJS = () => {
             const container = document.getElementById('canvas-container');
@@ -757,7 +1011,7 @@
         initThreeJS();
 
         // =========================================
-        // 3. GSAP ANIMATIONS (Scroll Reveal)
+        // 4. GSAP SCROLL ANIMATIONS
         // =========================================
         gsap.registerPlugin(ScrollTrigger);
 
