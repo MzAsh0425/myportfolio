@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asahi Mizutani | Data & Creative</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- External Libraries (CDN) -->
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP for High-end Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* =========================================
+           CORE & RESET
+           ========================================= */
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-sub: #a0a0a0;
+            --accent: #00f2ff; /* Cyan Neon */
+            --accent-2: #7000ff; /* Purple Neon */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --cursor-size: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Hide default cursor */
+        }
+
+        body {
+            font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           BACKGROUND & OVERLAYS
+           ========================================= */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0; /* Fade in later */
+            transition: opacity 1.5s ease;
+        }
+
+        /* Cinematic Noise Grain */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.05;
+            background: url('https://cdnjs.cloudflare.com/ajax/libs/post-processing/0.0.1/assets/textures/filmgrain/filmgrain.png'); /* Simple noise texture */
+        }
+
+        /* =========================================
+           CUSTOM CURSOR
+           ========================================= */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        /* =========================================
+           LAYOUT UTILITIES
+           ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        section {
+            padding: 150px 0;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================================
+           TYPOGRAPHY & TITLES
+           ========================================= */
+        .section-header {
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+            mix-blend-mode: overlay; /* Cool blending */
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* =========================================
+           COMPONENTS (Glassmorphism)
+           ========================================= */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 242, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            position: relative;
+            display: inline-block;
+            padding: 16px 32px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            margin-right: 15px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .btn:hover {
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 10;
+        }
+
+        .hero-img-wrap {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .hero-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .glitch-text {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+        
+        .hero-roles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            font-family: 'Courier New', monospace;
+        }
+        
+        .hero-role-item {
+            position: relative;
+        }
+        
+        .hero-role-item:not(:last-child)::after {
+            content: '/';
+            margin-left: 20px;
+            color: var(--glass-border);
+        }
+
+        /* =========================================
+           WORKS (Parallax Cards)
+           ========================================= */
+        .work-item {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 150px;
+        }
+        
+        .work-img-container {
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .work-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .work-item:hover .work-img-container img {
+            transform: scale(1.1);
+        }
+
+        .work-tags span {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        /* =========================================
+           SKILLS (Floating Grid)
+           ========================================= */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-box {
+            text-align: center;
+            padding: 30px 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+        }
+        
+        .skill-box:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+        }
+        
+        .skill-box i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: -webkit-linear-gradient(45deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* =========================================
+           AWARDS (Minimal List)
+           ========================================= */
+        .award-list {
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .award-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--glass-border);
+            transition: background 0.3s ease;
+        }
+        
+        .award-row:hover {
+            background: rgba(255,255,255,0.02);
+            padding-left: 20px;
+        }
+        
+        .award-year {
+            font-family: 'Courier New', monospace;
+            color: var(--text-sub);
+            margin-right: 30px;
+        }
+        
+        .award-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        
+        .award-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 900px) {
+            .section-title { font-size: 2.5rem; }
+            .glitch-text { font-size: 3rem; }
+            .work-item { grid-template-columns: 1fr; }
+            .work-img-container { height: 300px; }
+            .container { padding: 0 20px; }
+            .award-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+    
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation (Minimal) -->
+    <nav style="position: fixed; top: 30px; right: 40px; z-index: 100;">
+        <a href="mailto:mz.ash.of@gmail.com" class="magnetic-btn" style="color: #fff; font-weight: 600; mix-blend-mode: difference;">
+            CONTACT
+        </a>
+    </nav>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-img-wrap magnetic-element">
+                    <img src="IMG_4018.jpeg" alt="Asahi Mizutani">
+                </div>
+                <h1 class="glitch-text" data-text="Asahi Mizutani">Asahi Mizutani</h1>
+                <div class="hero-roles">
+                    <span class="hero-role-item">Data Scientist</span>
+                    <span class="hero-role-item">iOS Developer</span>
+                    <span class="hero-role-item">Creative Thinker</span>
+                </div>
+                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                    <a href="https://github.com/MzAsh0425" target="_blank" class="magnetic-btn"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="https://www.instagram.com/mz._.ash/" target="_blank" class="magnetic-btn"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
+            </div>
+            
+            <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); text-align: center; opacity: 0.6;">
+                <p style="font-size: 0.8rem; letter-spacing: 2px;">SCROLL TO EXPLORE</p>
+                <i class="fas fa-chevron-down" style="margin-top: 10px; animation: bounce 2s infinite;"></i>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Who I Am</span>
+                <h2 class="section-title text-reveal">The Architect of<br>Data & Experience</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+                <div class="glass-panel fade-up">
+                    <h3 style="color: var(--accent); margin-bottom: 20px;">// Professional</h3>
+                    <p style="line-height: 2; color: #ccc;">
+                        滋賀大学データサイエンス学部にて、データの裏側に潜む法則性を探究しています。しかし、私は分析だけで終わりません。SwiftによるiOS開発スキルを駆使し、分析結果を「誰もが使える形（プロダクト）」へと昇華させます。<br><br>
+                        予備校リーダー講師やサッカーチームのマネジメントで培った「人を動かす力」と、テックリードとしてプロジェクトを完遂する「エンジニアリング力」。この2つを武器に、未来のスタンダードを創ります。
+                    </p>
+                </div>
+                <div class="glass-panel fade-up" data-delay="0.2">
+                    <h3 style="color: var(--accent-2); margin-bottom: 20px;">// Personal</h3>
+                    <p style="line-height: 2; color: #ccc;">
+                        大阪生まれ、滋賀育ち。ロジカルな思考の一方で、感性を磨くことも忘れません。17年以上続くサッカー、20年以上のエレクトーン演奏。ピッチ上の戦略眼と、譜面から感情を読み取る感性は、今の開発スタイルに深く根付いています。<br><br>
+                        シリコンバレーで肌で感じたイノベーションの熱狂が、私の原動力です。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKS SECTION -->
+        <section id="works" class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Featured Project</span>
+                <h2 class="section-title text-reveal">Building Value</h2>
+            </div>
+
+            <div class="work-item">
+                <div class="work-img-container magnetic-element">
+                    <img src="atsumeru_宣伝.png" alt="atsumeru app">
+                </div>
+                <div class="work-info fade-up">
+                    <h3 style="font-size: 2.5rem; margin-bottom: 10px;">atsumeru</h3>
+                    <p style="color: var(--text-sub); margin-bottom: 20px;">“推し活”サポート グッズ管理アプリ</p>
+                    
+                    <div class="work-tags">
+                        <span>SwiftUI</span>
+                        <span>CoreData</span>
+                        <span>StoreKit 2</span>
+                        <span>Data Visualization</span>
+                    </div>
+
+                    <p style="margin: 30px 0; line-height: 1.8;">
+                        増え続ける収集データを構造化し、可視化する。データサイエンス的アプローチで「推し活」の課題を解決したiOSアプリ。数万件のデータにも耐えうる堅牢なDB設計と、直感的なUI/UXを両立。
+                    </p>
+
+                    <div>
+                        <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">App Store</a>
+                        <a href="https://atsumeru-app.github.io/index.html" target="_blank" class="btn">Website</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Capabilities</span>
+                <h2 class="section-title text-reveal">Tech Stack</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-box fade-up"><i class="fab fa-swift"></i><p>Swift</p></div>
+                <div class="skill-box fade-up" data-delay="0.1"><i class="fab fa-python"></i><p>Python</p></div>
+                <div class="skill-box fade-up" data-delay="0.2"><i class="fab fa-java"></i><p>Java</p></div>
+                <div class="skill-box fade-up" data-delay="0.3"><i class="fas fa-database"></i><p>MySQL</p></div>
+                <div class="skill-box fade-up" data-delay="0.4"><i class="fab fa-html5"></i><p>HTML/CSS</p></div>
+                <div class="skill-box fade-up" data-delay="0.5"><i class="fab fa-r-project"></i><p>R</p></div>
+                <div class="skill-box fade-up" data-delay="0.6"><i class="fab fa-git-alt"></i><p>Git</p></div>
+                <div class="skill-box fade-up" data-delay="0.7"><i class="fas fa-brain"></i><p>ML / AI</p></div>
+            </div>
+        </section>
+
+        <!-- AWARDS SECTION -->
+        <section class="container" style="max-width: 900px;">
+            <div class="section-header" style="text-align: center;">
+                <span class="section-subtitle">Honors</span>
+                <h2 class="section-title text-reveal">Achievements</h2>
+            </div>
+
+            <div class="award-list">
+                <div class="award-row fade-up">
+                    <span class="award-year">2025</span>
+                    <span class="award-title">応用情報技術者試験 / 東京大学松尾研GCI 修了</span>
+                    <span class="award-badge">Qualified</span>
+                </div>
+                <div class="award-row fade-up">
+                    <span class="award-year">2023</span>
+                    <span class="award-title">YAMAHA エレクトーンフェスティバル アンサンブル部門</span>
+                    <span class="award-badge">Gold Prize (x5)</span>
+                </div>
+                <div class="award-row fade-up">
+                    <span class="award-year">2016</span>
+                    <span class="award-title">YAMAHA エレクトーンフェスティバル ソロ部門</span>
+                    <span class="award-badge" style="color: silver; border-color: silver; background: rgba(192,192,192,0.1);">Silver Prize</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="container" style="text-align: center; padding-bottom: 100px;">
+            <div class="glass-panel fade-up">
+                <h2 style="font-size: 3rem; margin-bottom: 20px;">Let's Collaborate</h2>
+                <p style="margin-bottom: 40px; color: #ccc;">
+                    データとクリエイティブの力で、<br>まだ見ぬ価値を創造しましょう。
+                </p>
+                <a href="mailto:mz.ash.of@gmail.com" class="btn">
+                    Send Message
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-sub); font-size: 0.8rem;">
+        &copy; 2025 Asahi Mizutani. Engineered with passion & code.
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // =========================================
+        // 1. CUSTOM CURSOR LOGIC
+        // =========================================
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with delay (using animate for smooth lag)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Magnetic Buttons Effect
+        const magneticBtns = document.querySelectorAll('.magnetic-btn, .btn, .work-img-container');
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                cursorOutline.style.width = '60px';
+                cursorOutline.style.height = '60px';
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.backgroundColor = 'transparent';
+                // Reset position
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "power2.out" });
+            });
+            
+            // Button follows cursor slightly
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+            });
+        });
+
+        // =========================================
+        // 2. THREE.JS BACKGROUND (The Data Wave)
+        // =========================================
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Create Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const count = 1500;
+            const positions = new Float32Array(count * 3);
+            
+            for(let i = 0; i < count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 15; // Spread out
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x00f2ff,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+            
+            camera.position.z = 3;
+
+            // Mouse Interaction
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            document.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX / window.innerWidth - 0.5;
+                mouseY = event.clientY / window.innerHeight - 0.5;
+            });
+
+            // Animation Loop
+            const clock = new THREE.Clock();
+            
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+                
+                // Rotate entire system slowly
+                particles.rotation.y = elapsedTime * 0.05;
+                particles.rotation.x = mouseY * 0.5;
+                particles.rotation.y += mouseX * 0.5;
+
+                // Wave effect simulation on vertices
+                const positions = particles.geometry.attributes.position.array;
+                for(let i = 0; i < count; i++) {
+                    const i3 = i * 3;
+                    const x = particlesGeometry.attributes.position.array[i3];
+                    // Simple wave calc
+                    positions[i3 + 1] = Math.sin(elapsedTime + x) * 0.5 + (Math.random() - 0.5) * 0.05; 
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+            
+            animate();
+
+            // Fade in canvas
+            setTimeout(() => {
+                container.style.opacity = 1;
+            }, 500);
+
+            // Resize handling
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        initThreeJS();
+
+        // =========================================
+        // 3. GSAP ANIMATIONS (Scroll Reveal)
+        // =========================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Text Scramble Effect for Headings
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="dud">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Apply Scramble on Scroll
+        document.querySelectorAll('.text-reveal').forEach(el => {
+            const fx = new TextScramble(el);
+            const finalText = el.innerText;
+            
+            ScrollTrigger.create({
+                trigger: el,
+                start: "top 80%",
+                onEnter: () => {
+                    fx.setText(finalText);
+                }
+            });
+        });
+
+        // General Fade Up Animations
+        gsap.utils.toArray('.fade-up').forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    delay: element.dataset.delay || 0,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Hero Glitch Animation on Load
+        const title = document.querySelector('.glitch-text');
+        const fx = new TextScramble(title);
+        setTimeout(() => {
+            fx.setText('Asahi Mizutani');
+        }, 1000);
+
+    </script>
+</body>
+</html>
