@@ -218,6 +218,15 @@
         }
 
         /* =========================================
+           ABOUT SECTION STYLES (NEW)
+           ========================================= */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        /* =========================================
            HERO SECTION
            ========================================= */
         .hero {
@@ -473,6 +482,9 @@
             .work-img-container { height: 300px; }
             .container { padding: 0 20px; }
             
+            /* About Grid Fix for Mobile */
+            .about-grid { grid-template-columns: 1fr; }
+
             .award-header { flex-wrap: wrap; gap: 10px; }
             .award-year { min-width: auto; margin-right: 10px; }
             .award-details-inner { padding: 0 0 20px 0; }
@@ -532,7 +544,7 @@
                 <h2 class="section-title text-reveal">The Architect of<br>Data & Experience</h2>
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+            <div class="about-grid">
                 <div class="glass-panel fade-up">
                     <h3 style="color: var(--accent); margin-bottom: 20px;">// Professional</h3>
                     <p style="line-height: 2; color: #ccc;">
