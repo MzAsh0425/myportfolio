@@ -20,16 +20,14 @@
            CORE & RESET
            ========================================= */
         :root {
-            --bg-color: #08080b; /* Slightly warmer dark */
+            --bg-color: #08080b;
             --text-main: #ffffff;
             --text-sub: #b0b0b0;
             
             /* Theme Colors */
-            --cyber-blue: #00f2ff; /* Data / Logic */
+            --cyber-blue: #00f2ff; /* Logic / Data */
             --sound-gold: #e0c388; /* Music / Brass / Electone */
-            --accent-mix: linear-gradient(135deg, var(--cyber-blue), var(--sound-gold));
-            
-            --glass-bg: rgba(20, 20, 25, 0.4);
+            --glass-bg: rgba(20, 20, 25, 0.6);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-highlight: rgba(255, 255, 255, 0.15);
         }
@@ -146,10 +144,10 @@
         }
 
         .section-title {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 700;
             line-height: 1;
-            background: linear-gradient(to right, #fff, #888);
+            background: linear-gradient(to right, #fff, #999);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
@@ -171,7 +169,6 @@
         }
         .bar:nth-child(2) { animation-delay: 0.1s; background: var(--sound-gold); }
         .bar:nth-child(3) { animation-delay: 0.2s; background: var(--cyber-blue); }
-        .bar:nth-child(4) { animation-delay: 0.3s; background: var(--sound-gold); }
 
         @keyframes equalize {
             0%, 100% { height: 10%; opacity: 0.3; }
@@ -191,12 +188,12 @@
             position: relative;
             overflow: hidden;
         }
-
+        
         .glass-panel::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 2px; height: 100%;
-            background: var(--accent-mix);
+            background: linear-gradient(to bottom, var(--cyber-blue), var(--sound-gold));
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -225,6 +222,7 @@
             overflow: hidden;
             margin-top: 20px;
             margin-right: 15px;
+            border-radius: 100px;
         }
         .btn:hover {
             border-color: var(--sound-gold);
@@ -249,10 +247,10 @@
             border-radius: 50%;
             margin: 0 auto 30px;
             position: relative;
-            padding: 5px; /* Spacing for border */
+            padding: 4px; 
             background: conic-gradient(from 0deg, transparent 0%, var(--cyber-blue) 30%, transparent 60%, var(--sound-gold) 90%);
             animation: spin 10s linear infinite;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
         }
         
         .hero-img-inner {
@@ -263,7 +261,7 @@
             background: #000;
             position: relative;
             z-index: 2;
-            animation: spin 10s linear infinite reverse; /* Counter-rotate image */
+            animation: spin 10s linear infinite reverse; 
         }
 
         .hero-img-inner img {
@@ -275,7 +273,7 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .glitch-text {
-            font-size: 5.5rem;
+            font-size: 5rem;
             font-weight: 700;
             margin-bottom: 15px;
             letter-spacing: -2px;
@@ -287,20 +285,14 @@
             color: var(--text-sub);
             font-size: 1.1rem;
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
         }
-
-        .role-item { position: relative; }
+        
         .role-item::after {
-            content: '●';
-            font-size: 0.5rem;
-            color: var(--sound-gold);
-            position: absolute;
-            right: -18px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.5;
+            content: '/';
+            margin-left: 20px;
+            color: var(--glass-border);
         }
         .role-item:last-child::after { display: none; }
 
@@ -320,17 +312,6 @@
             font-size: 1.2rem;
             font-weight: 700;
         }
-        .topic-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
 
         /* =========================================
            WORKS
@@ -343,11 +324,10 @@
         }
 
         .work-visual {
-            height: 550px;
+            height: 500px;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            /* Vinyl Sleeve Effect */
             box-shadow: 10px 10px 40px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -361,12 +341,12 @@
         .work-item:hover .work-visual img { transform: scale(1.05); }
 
         .tech-tag {
-            font-size: 0.75rem;
-            padding: 5px 12px;
+            font-size: 0.8rem;
+            padding: 6px 14px;
             border: 1px solid var(--glass-border);
             border-radius: 100px;
-            margin-right: 5px;
-            margin-bottom: 5px;
+            margin-right: 8px;
+            margin-bottom: 8px;
             display: inline-block;
             color: var(--text-sub);
             font-family: 'Courier New', monospace;
@@ -376,18 +356,16 @@
            SKILLS (Keyboard Layout)
            ========================================= */
         .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             gap: 15px;
-            justify-content: center;
         }
 
         .skill-key {
-            width: 140px;
             height: 160px;
             background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--glass-border);
-            border-radius: 0 0 8px 8px; /* Look like piano keys */
+            border-radius: 0 0 8px 8px; /* Piano key look */
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -400,13 +378,13 @@
         .skill-key::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
+            top: 0; left: 0; width: 100%; height: 3px;
             background: var(--glass-border);
             transition: background 0.3s;
         }
 
         .skill-key i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: auto;
             margin-top: 20px;
             color: #555;
@@ -415,89 +393,121 @@
 
         .skill-key:hover {
             background: rgba(255,255,255,0.08);
-            transform: translateY(5px); /* Key press effect */
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            transform: translateY(5px); 
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
         }
         .skill-key:hover i { color: var(--cyber-blue); }
         .skill-key:hover::before { background: var(--sound-gold); }
 
         /* =========================================
-           AWARDS (Timeline)
+           AWARDS (Original Structure with New Design)
            ========================================= */
-        .award-item {
-            border-left: 1px solid var(--glass-border);
-            padding-left: 30px;
-            padding-bottom: 40px;
-            position: relative;
+        .award-group {
+            margin-bottom: 60px;
         }
         
-        .award-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 28px;
-            width: 9px;
-            height: 9px;
-            background: var(--bg-color);
-            border: 1px solid var(--text-sub);
-            border-radius: 50%;
-            transition: all 0.3s;
+        .award-group-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--text-sub);
+            border-left: 3px solid var(--sound-gold);
+            padding-left: 15px;
+        }
+
+        .award-item {
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .award-header {
-            padding: 20px 25px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            cursor: pointer;
+            transition: background 0.3s ease, padding 0.3s ease;
         }
-
+        
         .award-header:hover {
-            background: rgba(255,255,255,0.05);
-            padding-left: 35px;
-        }
-        .award-item:hover::before {
-            background: var(--sound-gold);
-            border-color: var(--sound-gold);
-            box-shadow: 0 0 10px var(--sound-gold);
+            background: rgba(255,255,255,0.02);
+            padding-left: 15px;
+            padding-right: 15px;
         }
 
         .award-year {
-            font-family: 'Space Grotesk';
+            font-family: 'Space Grotesk', monospace;
             color: var(--sound-gold);
-            font-size: 0.9rem;
+            margin-right: 30px;
+            min-width: 150px;
+            font-size: 0.95rem;
+        }
+        
+        .award-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex-grow: 1;
+            color: #fff;
+        }
+        
+        .award-link {
+            color: var(--cyber-blue);
+            transition: all 0.3s;
+        }
+        .award-link:hover { text-shadow: 0 0 10px var(--cyber-blue); }
+
+        .award-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-right: 20px;
-            min-width: 100px;
+            white-space: nowrap;
+        }
+
+        /* Badge Variations mapped to Theme */
+        .badge-univ { border: 1px solid #fff; color: #fff; background: rgba(255,255,255,0.1); }
+        .badge-exp { border: 1px solid var(--cyber-blue); color: var(--cyber-blue); background: rgba(0, 242, 255, 0.1); }
+        .badge-intern { border: 1px solid #a0a0ff; color: #a0a0ff; background: rgba(160, 160, 255, 0.1); }
+        .badge-qual { border: 1px solid #32CD32; color: #32CD32; background: rgba(50,205,50,0.1); }
+        .badge-gold { border: 1px solid var(--sound-gold); color: var(--sound-gold); background: rgba(224, 195, 136, 0.1); }
+        .badge-silver { border: 1px solid #c0c0c0; color: #c0c0c0; background: rgba(192,192,192,0.1); }
+
+        .toggle-icon {
+            font-size: 1rem;
+            color: var(--text-sub);
+            transition: transform 0.3s ease;
+        }
+
+        .award-header.active .toggle-icon {
+            transform: rotate(45deg);
+            color: var(--cyber-blue);
         }
 
         .award-details {
             height: 0;
             overflow: hidden;
+            color: #bbb;
             font-size: 0.95rem;
-            color: #aaa;
-            line-height: 1.7;
+            line-height: 1.8;
         }
-        .award-details-inner { padding: 20px 10px 0; }
-
-        .badge {
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-right: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
+        
+        .award-details-inner {
+            padding: 0 0 25px 180px; /* Aligned with title */
         }
 
         /* Responsive */
         @media (max-width: 900px) {
-            .section-title { font-size: 3rem; }
+            .section-title { font-size: 2.8rem; }
             .glitch-text { font-size: 3.5rem; }
             .about-grid, .work-item { grid-template-columns: 1fr; }
             .work-visual { height: 300px; }
             .hero-roles { flex-direction: column; gap: 10px; }
-            .role-item::after { display: none; }
+            
+            /* Accordion Mobile */
+            .award-header { flex-wrap: wrap; gap: 10px; }
+            .award-year { min-width: auto; margin-right: 10px; }
+            .award-details-inner { padding: 0 0 20px 0; }
+            .toggle-icon { margin-left: auto; }
         }
     </style>
 </head>
@@ -510,7 +520,7 @@
     <div class="cursor-outline"></div>
 
     <nav style="position: fixed; top: 30px; right: 40px; z-index: 100; mix-blend-mode: difference;">
-        <a href="mailto:mz.ash.of@gmail.com" style="font-weight: 700; letter-spacing: 2px; font-size: 0.9rem;">
+        <a href="mailto:mz.ash.of@gmail.com" class="magnetic" style="font-weight: 700; letter-spacing: 2px; font-size: 0.9rem; color: #fff;">
             // CONTACT
         </a>
     </nav>
@@ -529,7 +539,7 @@
                 <div class="hero-roles">
                     <span class="role-item">Data Scientist</span>
                     <span class="role-item">iOS Developer</span>
-                    <span class="role-item">Electone Player</span>
+                    <span class="role-item">Creative Thinker</span>
                 </div>
 
                 <div style="margin-top: 40px; display: flex; justify-content: center; gap: 25px;">
@@ -547,32 +557,27 @@
             <div class="section-header">
                 <span class="section-subtitle">01 / Profile</span>
                 <div class="section-title">
-                    The Dual <div class="equalizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div> Core
+                    The Architect of <div class="equalizer"><div class="bar"></div><div class="bar"></div></div><br>Data & Experience
                 </div>
             </div>
 
             <div class="about-grid">
                 <div class="glass-panel fade-up">
                     <div class="topic-header" style="color: var(--cyber-blue);">
-                        <div class="topic-icon" style="color: var(--cyber-blue);"><i class="fas fa-code"></i></div>
-                        LOGIC & DATA
+                        // Professional
                     </div>
-                    <p style="line-height: 1.8; color: #ccc;">
-                        滋賀大学データサイエンス学部にて、データの裏側に潜む法則性を探究。
-                        SwiftによるiOS開発スキルを駆使し、分析結果を「誰もが使えるプロダクト」へと昇華させるエンジニアリング力が武器。
-                        予備校リーダー講師やテックリードとして培った「人を動かす力」でプロジェクトを推進します。
+                    <p style="line-height: 2; color: #ccc;">
+                        滋賀大学データサイエンス学部にて、データの裏側に潜む法則性を探究しています。しかし、私は分析だけで終わりません。SwiftによるiOS開発スキルを駆使し、分析結果を「誰もが使える形（プロダクト）」へと昇華させます。<br><br>
+                        予備校リーダー講師やサッカーチームのマネジメントで培った「人を動かす力」と、テックリードとしてプロジェクトを完遂する「エンジニアリング力」。この2つを武器に、未来のスタンダードを創ります。
                     </p>
                 </div>
-
                 <div class="glass-panel fade-up" data-delay="0.2">
                     <div class="topic-header" style="color: var(--sound-gold);">
-                        <div class="topic-icon" style="color: var(--sound-gold);"><i class="fas fa-music"></i></div>
-                        SENSE & SOUND
+                        // Personal
                     </div>
-                    <p style="line-height: 1.8; color: #ccc;">
-                        20年以上のエレクトーン演奏経験が、私の感性の根源です。
-                        譜面から感情を読み解く力は、ユーザーのインサイトを読み解く力へ。
-                        複数の音色を重ねて一つの音楽を創る編曲能力は、複数の技術を組み合わせてシステムを構築するアーキテクチャ思考に通じています。
+                    <p style="line-height: 2; color: #ccc;">
+                        大阪生まれ、滋賀育ち。ロジカルな思考の一方で、感性を磨くことも忘れません。17年以上続くサッカー、20年以上のエレクトーン演奏。ピッチ上の戦略眼と、譜面から感情を読み取る感性は、今の開発スタイルに深く根付いています。<br><br>
+                        シリコンバレーで肌で感じたイノベーションの熱狂が、私の原動力です。
                     </p>
                 </div>
             </div>
@@ -582,7 +587,7 @@
             <div class="section-header">
                 <span class="section-subtitle">02 / Project</span>
                 <div class="section-title">
-                    Masterpiece <div class="equalizer"><div class="bar"></div><div class="bar"></div></div>
+                    Building Value <div class="equalizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
                 </div>
             </div>
 
@@ -599,15 +604,14 @@
                         <span class="tech-tag">SwiftUI</span>
                         <span class="tech-tag">CoreData</span>
                         <span class="tech-tag">StoreKit 2</span>
-                        <span class="tech-tag">Charts</span>
+                        <span class="tech-tag">Data Visualization</span>
                     </div>
 
                     <p style="margin-bottom: 30px; line-height: 1.8; color: #bbb;">
-                        収集データを構造化し、可視化する。データサイエンス的アプローチで「推し活」の課題を解決したiOSアプリ。
-                        数万件のデータにも耐えうる堅牢なDB設計と、直感的なUI/UXを両立。
+                        増え続ける収集データを構造化し、可視化する。データサイエンス的アプローチで「推し活」の課題を解決したiOSアプリ。数万件のデータにも耐えうる堅牢なDB設計と、直感的なUI/UXを両立。
                     </p>
 
-                    <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">View on AppStore</a>
+                    <a href="https://apps.apple.com/jp/app/atsumeru/id6748431704" target="_blank" class="btn">App Store</a>
                     <a href="https://atsumeru-app.github.io/index.html" target="_blank" class="btn" style="border-color:transparent;">Website</a>
                 </div>
             </div>
@@ -617,7 +621,7 @@
             <div class="section-header">
                 <span class="section-subtitle">03 / Instrument</span>
                 <div class="section-title">
-                    Tech Stack <div class="equalizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+                    Tech Stack <div class="equalizer"><div class="bar"></div><div class="bar"></div></div>
                 </div>
             </div>
             
@@ -625,87 +629,237 @@
                 <div class="skill-key fade-up"><i class="fab fa-swift"></i><p>Swift</p></div>
                 <div class="skill-key fade-up" data-delay="0.1"><i class="fab fa-python"></i><p>Python</p></div>
                 <div class="skill-key fade-up" data-delay="0.2"><i class="fab fa-java"></i><p>Java</p></div>
-                <div class="skill-key fade-up" data-delay="0.3"><i class="fas fa-database"></i><p>SQL</p></div>
-                <div class="skill-key fade-up" data-delay="0.4"><i class="fas fa-brain"></i><p>AI/ML</p></div>
-                <div class="skill-key fade-up" data-delay="0.5"><i class="fab fa-git-alt"></i><p>Git</p></div>
+                <div class="skill-key fade-up" data-delay="0.3"><i class="fas fa-database"></i><p>MySQL</p></div>
+                <div class="skill-key fade-up" data-delay="0.4"><i class="fab fa-html5"></i><p>HTML/CSS</p></div>
+                <div class="skill-key fade-up" data-delay="0.5"><i class="fab fa-r-project"></i><p>R</p></div>
+                <div class="skill-key fade-up" data-delay="0.6"><i class="fab fa-git-alt"></i><p>Git</p></div>
+                <div class="skill-key fade-up" data-delay="0.7"><i class="fas fa-brain"></i><p>ML / AI</p></div>
             </div>
         </section>
 
-        <section class="container" style="max-width: 900px;">
-            <div class="section-header">
-                <span class="section-subtitle">04 / History</span>
-                <div class="section-title">Tracks</div>
+        <section class="container" style="max-width: 1000px;">
+            <div class="section-header" style="text-align: center;">
+                <span class="section-subtitle">04 / Timeline</span>
+                <div class="section-title">Achievements</div>
+                <p style="color: var(--text-sub); margin-top: 20px;">Click items to see details</p>
             </div>
 
             <div class="award-group fade-up">
-                <h3 style="margin-bottom: 30px; color: var(--cyber-blue);">// Experience</h3>
+                <h3 class="award-group-title">Experience</h3>
                 
                 <div class="award-item">
                     <div class="award-header">
-                        <div style="display:flex; align-items:center;">
-                            <span class="award-year">2023 - Now</span>
-                            <span style="font-weight:600;">滋賀大学 データサイエンス学部</span>
-                        </div>
-                        <span class="badge" style="border-color: var(--cyber-blue); color: var(--cyber-blue);">Univ</span>
+                        <span class="award-year">2023.04 - Present</span>
+                        <span class="award-title">
+                            <a href="https://www.ds.shiga-u.ac.jp" target="_blank" class="award-link">
+                                滋賀大学 データサイエンス学部 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-univ">Univ</span>
+                        <i class="fas fa-plus toggle-icon"></i>
                     </div>
-                    <div class="award-details"><div class="award-details-inner">梅津ゼミ所属。無線ネットワーク・センサーネットワーク研究。音楽×DSの自主ゼミ活動も展開。</div></div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            梅津ゼミ所属。無線・モバイルネットワークやセンサーネットワークをテーマとした研究に従事。また、音楽×データサイエンスの自主ゼミなど、学際的なアプローチでの研究活動にも注力。
+                        </div>
+                    </div>
                 </div>
 
                 <div class="award-item">
                     <div class="award-header">
-                        <div style="display:flex; align-items:center;">
-                            <span class="award-year">2025.10</span>
-                            <span style="font-weight:600;">阪神電鉄 データ分析研修</span>
-                        </div>
-                        <span class="badge" style="border-color: #fff; color: #fff;">Intern</span>
+                        <span class="award-year">2025.10 - 2025.12</span>
+                        <span class="award-title">阪神電鉄 データ分析研修 伴走支援業務</span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
                     </div>
-                    <div class="award-details"><div class="award-details-inner">学生データサイエンティストとして、社員研修の伴走支援・技術指導を担当。</div></div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            学生データサイエンティストとして、社員研修におけるデータ分析を技術面からサポート。実務データを用いた分析指導やアドバイスを実施。
+                        </div>
+                    </div>
                 </div>
 
-                 <div class="award-item">
+                <div class="award-item">
                     <div class="award-header">
-                        <div style="display:flex; align-items:center;">
-                            <span class="award-year">2025.08</span>
-                            <span style="font-weight:600;">Safie株式会社 アイディアソン</span>
-                        </div>
-                        <span class="badge" style="border-color: #fff; color: #fff;">Intern</span>
+                        <span class="award-year">2025.10</span>
+                        <span class="award-title">
+                            <a href="https://www.shiga-u.ac.jp/40297/" target="_blank" class="award-link">
+                                大阪・関西万博 プロジェクト <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-exp">Experience</span>
+                        <i class="fas fa-plus toggle-icon"></i>
                     </div>
-                    <div class="award-details"><div class="award-details-inner">テックリードとして議論を主導。カメラ映像データを用いた新サービス立案。</div></div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            「ヒトとロボットが共に生きる未来へ」調査・発表。ROBOT＆MOBILITY STATIONにて、人間とロボットの共生に関する調査結果を発表。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.10</span>
+                        <span class="award-title">
+                            <a href="https://www.future.co.jp" target="_blank" class="award-link">
+                                フューチャー株式会社 <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            ITコンサルタントワークショップに参加。課題抽出から提案まで、一気通貫したコンサルティング業務をグループワーク形式で実践。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.08</span>
+                        <span class="award-title">
+                            <a href="https://safie.jp" target="_blank" class="award-link">
+                                Safie株式会社 アイディアソン <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            テックリードとして議論を主導。カメラを用いた新サービス案の企画・発表を経験し、データ活用とサービス設計の知見を深める。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2025.08</span>
+                        <span class="award-title">
+                            <a href="https://www.ga-tech.co.jp" target="_blank" class="award-link">
+                                GA technologies - GIANT LEAP <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-intern">Internship</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            実務レベルのコードレビューを通じたプログラミング研修。現場エンジニアからのフィードバックを受け、品質の高いコード設計を学ぶ。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2023.08</span>
+                        <span class="award-title">
+                            <a href="https://www.econ.shiga-u.ac.jp/topics/keizai20230807-18SV.html" target="_blank" class="award-link">
+                                Silicon Valley Innovation & Startup Program <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </span>
+                        <span class="award-badge badge-exp">Experience</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            起業の聖地にて現地のスタートアップ文化やイノベーション精神を学習。
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="award-group fade-up" style="margin-top: 60px;">
-                <h3 style="margin-bottom: 30px; color: var(--sound-gold);">// Awards & Music</h3>
+            <div class="award-group fade-up">
+                <h3 class="award-group-title">Certifications</h3>
                 
                 <div class="award-item">
                     <div class="award-header">
-                        <div style="display:flex; align-items:center;">
-                            <span class="award-year">2013 - 2023</span>
-                            <span style="font-weight:600;">YAMAHA エレクトーンフェスティバル</span>
-                        </div>
-                        <span class="badge" style="border-color: var(--sound-gold); color: var(--sound-gold);">Gold Prize x5</span>
+                        <span class="award-year">2025</span>
+                        <span class="award-title">応用情報技術者試験 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
                     </div>
-                    <div class="award-details"><div class="award-details-inner">アンサンブル部門 滋賀地区ファイナルにて5度の金賞受賞。10年間のチーム活動で培った協調性と表現力。</div></div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            高度IT人材となるために必要な応用的知識・技能を保有することを証明する国家試験。
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div class="award-item">
                     <div class="award-header">
-                        <div style="display:flex; align-items:center;">
-                            <span class="award-year">2016</span>
-                            <span style="font-weight:600;">YAMAHA エレクトーンフェスティバル ソロ</span>
-                        </div>
-                        <span class="badge" style="border-color: silver; color: silver;">Silver Prize</span>
+                        <span class="award-year">2025</span>
+                        <span class="award-title">東京大学松尾研GCI 修了</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
                     </div>
-                     <div class="award-details"><div class="award-details-inner">滋賀地区ファイナル 銀賞受賞。</div></div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            東京大学松尾研究室が提供するグローバル消費インテリジェンス寄付講座。データサイエンスと機械学習の実践的なスキルを習得。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2024</span>
+                        <span class="award-title">統計検定準1級 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            統計学の基礎から応用まで、データ分析に必要な数理統計学的知識を証明。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2024</span>
+                        <span class="award-title">基本情報技術者試験 合格</span>
+                        <span class="award-badge badge-qual">Qualified</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            ITエンジニアとしての基礎的な知識・技能を証明する国家試験。
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="award-group fade-up" style="margin-top: 60px;">
-                <h3 style="margin-bottom: 30px; color: #aaa;">// Certifications</h3>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <span class="tech-tag">応用情報技術者</span>
-                    <span class="tech-tag">統計検定準1級</span>
-                    <span class="tech-tag">東京大学GCI修了</span>
+            <div class="award-group fade-up">
+                <h3 class="award-group-title">Awards</h3>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2013 - 2023</span>
+                        <span class="award-title">YAMAHA エレクトーンフェスティバル アンサンブル部門</span>
+                        <span class="award-badge badge-gold">Gold Prize (x5)</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            2013, 2015, 2017, 2019, 2023年 (滋賀地区ファイナル) 金賞受賞。<br>
+                            10年以上にわたるチーム活動継続により、高度な協調性と表現力を証明。個人のスキルだけでなく、チームとして最高のパフォーマンスを発揮する経験を積む。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item">
+                    <div class="award-header">
+                        <span class="award-year">2016</span>
+                        <span class="award-title">YAMAHA エレクトーンフェスティバル ソロ部門</span>
+                        <span class="award-badge badge-silver">Silver Prize</span>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="award-details">
+                        <div class="award-details-inner">
+                            滋賀地区ファイナル 銀賞受賞。個人の演奏技術と表現力を追求し、成果を残す。
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -721,7 +875,7 @@
     </main>
 
     <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: #555; font-size: 0.8rem;">
-        &copy; 2025 Asahi Mizutani.
+        &copy; 2025 Asahi Mizutani. Engineered with passion & code.
     </footer>
 
     <script>
@@ -741,7 +895,6 @@
             container.appendChild(renderer.domElement);
 
             // Create Terrain Geometry (Plane)
-            // Width, Height, SegmentsX, SegmentsY
             const geometry = new THREE.PlaneBufferGeometry(150, 150, 64, 64);
             
             // Material: Wireframe to look like data/grid
@@ -782,12 +935,10 @@
                     const y = originalPositions[i * 3 + 1]; // Actually Z in 3D space since rotated
                     
                     // Wave formula: Combination of Sines to look like audio frequencies
-                    // Dynamic change based on mouse X (Frequency) and Y (Amplitude)
                     const wave1 = Math.sin(x * 0.1 + time) * 2;
                     const wave2 = Math.cos(y * 0.1 + time) * 2;
                     const mouseInteraction = Math.sin(x * 0.2 + time * 2) * (mouseX * 5);
                     
-                    // Update Z (which is vertical height relative to plane)
                     positionAttribute.array[i * 3 + 2] = wave1 + wave2 + mouseInteraction;
                 }
                 
@@ -798,7 +949,6 @@
                 
                 // Gentle color shift between Blue and Gold
                 const hue = (Math.sin(time * 0.1) + 1) * 0.5; // 0 to 1
-                // Interpolate colors (Approximation)
                 material.color.setHSL(0.5 + hue * 0.1, 1, 0.5); // Stays mostly Cyan/Blue range
 
                 renderer.render(scene, camera);
@@ -939,20 +1089,22 @@
         });
 
         // =========================================
-        // 4. ACCORDION (Awards)
+        // 4. ACCORDION (Awards) - Re-enabled
         // =========================================
         document.querySelectorAll('.award-header').forEach(header => {
             header.addEventListener('click', function() {
+                // Toggle active class for icon rotation
+                this.classList.toggle('active');
+
                 const details = this.nextElementSibling;
                 const isOpen = details.style.height !== '' && details.style.height !== '0px';
                 
-                // Close all others
-                document.querySelectorAll('.award-details').forEach(d => {
-                    gsap.to(d, {height: 0, duration: 0.3});
-                });
-
-                if (!isOpen) {
+                if (isOpen) {
+                     gsap.to(details, {height: 0, duration: 0.3});
+                } else {
                     gsap.to(details, {height: "auto", duration: 0.4});
+                    // Fade content
+                    gsap.fromTo(details.children[0], {opacity:0, y:10}, {opacity:1, y:0, duration:0.3, delay:0.1});
                 }
             });
         });
