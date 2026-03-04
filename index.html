@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asahi Mizutani | Data & Sound</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         /* =========================================
@@ -18,7 +23,7 @@
             --bg-color: #08080b;
             --text-main: #ffffff;
             --text-sub: #b0b0b0;
-            
+
             /* Theme Colors */
             --cyber-blue: #00f2ff; /* Logic / Data */
             --sound-gold: #e0c388; /* Music / Brass / Electone */
@@ -69,7 +74,7 @@
         }
 
         /* =========================================
-           CUSTOM CURSOR
+           CUSTOM CURSOR (Conductor's Baton)
            ========================================= */
         .cursor-dot {
             width: 6px;
@@ -113,6 +118,7 @@
 
         a { text-decoration: none; color: inherit; }
 
+        /* Titles with Equalizer Effect */
         .section-header {
             margin-bottom: 90px;
             position: relative;
@@ -149,7 +155,7 @@
             gap: 20px;
         }
 
-        /* Equalizer Bars */
+        /* Animated Equalizer Bars */
         .equalizer {
             display: flex;
             align-items: flex-end;
@@ -182,7 +188,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .glass-panel::before {
             content: '';
             position: absolute;
@@ -199,6 +205,7 @@
         }
         .glass-panel:hover::before { opacity: 1; }
 
+        /* Buttons */
         .btn {
             position: relative;
             display: inline-flex;
@@ -245,7 +252,7 @@
             animation: spin 10s linear infinite;
             box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
         }
-        
+
         .hero-img-inner {
             width: 100%;
             height: 100%;
@@ -281,7 +288,7 @@
             gap: 20px;
             justify-content: center;
         }
-        
+
         .role-item::after {
             content: '/';
             margin-left: 20px;
@@ -290,7 +297,7 @@
         .role-item:last-child::after { display: none; }
 
         /* =========================================
-           ABOUT
+           ABOUT (Split Layout)
            ========================================= */
         .about-grid {
             display: grid;
@@ -346,7 +353,7 @@
         }
 
         /* =========================================
-           SKILLS
+           SKILLS (Keyboard Layout)
            ========================================= */
         .skills-grid {
             display: grid;
@@ -358,7 +365,7 @@
             height: 160px;
             background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--glass-border);
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 8px 8px; /* Piano key look */
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -367,7 +374,7 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        
+
         .skill-key::before {
             content: '';
             position: absolute;
@@ -393,12 +400,12 @@
         .skill-key:hover::before { background: var(--sound-gold); }
 
         /* =========================================
-           AWARDS
+           AWARDS (Original Structure with New Design)
            ========================================= */
         .award-group {
             margin-bottom: 60px;
         }
-        
+
         .award-group-title {
             font-size: 1.5rem;
             margin-bottom: 25px;
@@ -419,7 +426,7 @@
             cursor: pointer;
             transition: background 0.3s ease, padding 0.3s ease;
         }
-        
+
         .award-header:hover {
             background: rgba(255,255,255,0.02);
             padding-left: 15px;
@@ -433,14 +440,14 @@
             min-width: 150px;
             font-size: 0.95rem;
         }
-        
+
         .award-title {
             font-size: 1.1rem;
             font-weight: 600;
             flex-grow: 1;
             color: #fff;
         }
-        
+
         .award-link {
             color: var(--cyber-blue);
             transition: all 0.3s;
@@ -457,6 +464,7 @@
             white-space: nowrap;
         }
 
+        /* Badge Variations mapped to Theme */
         .badge-univ { border: 1px solid #fff; color: #fff; background: rgba(255,255,255,0.1); }
         .badge-exp { border: 1px solid var(--cyber-blue); color: var(--cyber-blue); background: rgba(0, 242, 255, 0.1); }
         .badge-intern { border: 1px solid #a0a0ff; color: #a0a0ff; background: rgba(160, 160, 255, 0.1); }
@@ -482,9 +490,9 @@
             font-size: 0.95rem;
             line-height: 1.8;
         }
-        
+
         .award-details-inner {
-            padding: 0 0 25px 180px;
+            padding: 0 0 25px 180px; /* Aligned with title */
         }
 
         /* Responsive */
@@ -494,7 +502,8 @@
             .about-grid, .work-item { grid-template-columns: 1fr; }
             .work-visual { height: 300px; }
             .hero-roles { flex-direction: column; gap: 10px; }
-            
+
+            /* Accordion Mobile */
             .award-header { flex-wrap: wrap; gap: 10px; }
             .award-year { min-width: auto; margin-right: 10px; }
             .award-details-inner { padding: 0 0 20px 0; }
@@ -524,22 +533,24 @@
                         <img src="IMG_4018.jpeg" alt="Asahi Mizutani">
                     </div>
                 </div>
-                
+
                 <h1 class="glitch-text text-reveal">Asahi Mizutani</h1>
-                
+
                 <div class="hero-roles">
                     <span class="role-item">Data Scientist</span>
                     <span class="role-item">iOS Developer</span>
                     <span class="role-item">Creative Thinker</span>
                 </div>
 
+                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 25px;">
                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 25px;">
                     <a href="https://github.com/MzAsh0425" target="_blank" class="magnetic"><i class="fab fa-github fa-2x"></i></a>
-                   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+                    <a href="https://x.com/mz._.ash_" target="_blank" class="magnetic"><i class="fab fa-x-twitter fa-2x"></i></a>
                     <a href="https://www.instagram.com/mz._.ash/" target="_blank" class="magnetic"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
                </div>
             </div>
-            
+
             <div style="position: absolute; bottom: 50px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
                 SCROLL TO PLAY <i class="fas fa-arrow-down" style="margin-left: 8px;"></i>
             </div>
@@ -591,7 +602,7 @@
                 <div class="work-info fade-up">
                     <h3 style="font-size: 3rem; margin-bottom: 10px; font-weight: 700;">atsumeru</h3>
                     <p style="color: var(--sound-gold); margin-bottom: 20px; font-family: 'Zen Kaku Gothic New';">“推し活”サポート グッズ管理アプリ</p>
-                    
+
                     <div style="margin-bottom: 30px;">
                         <span class="tech-tag">SwiftUI</span>
                         <span class="tech-tag">CoreData</span>
@@ -616,7 +627,7 @@
                     Tech Stack <div class="equalizer"><div class="bar"></div><div class="bar"></div></div>
                 </div>
             </div>
-            
+
             <div class="skills-grid">
                 <div class="skill-key fade-up"><i class="fab fa-swift"></i><p>Swift</p></div>
                 <div class="skill-key fade-up" data-delay="0.1"><i class="fab fa-python"></i><p>Python</p></div>
@@ -638,7 +649,7 @@
 
             <div class="award-group fade-up">
                 <h3 class="award-group-title">Experience</h3>
-                
+
                 <div class="award-item">
                     <div class="award-header">
                         <span class="award-year">2023.04 - Present</span>
@@ -764,7 +775,7 @@
 
             <div class="award-group fade-up">
                 <h3 class="award-group-title">Certifications</h3>
-                
+
                 <div class="award-item">
                     <div class="award-header">
                         <span class="award-year">2025</span>
@@ -870,108 +881,108 @@
         &copy; 2025 Asahi Mizutani. Engineered with passion & code.
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script>
-        // GSAP ScrollTriggerの初期化（これを忘れるとアニメーションが止まることがあります）
-        gsap.registerPlugin(ScrollTrigger);
-
         // =========================================
         // 1. THREE.JS (3D Spectrogram Terrain)
         // =========================================
         const initThree = () => {
-            try {
-                const container = document.getElementById('canvas-container');
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.set(0, 20, 60);
-                camera.lookAt(0, 0, 0);
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            // Camera position slightly elevated
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 20, 60);
+            camera.lookAt(0, 0, 0);
 
-                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Create Terrain Geometry (Plane)
+            const geometry = new THREE.PlaneBufferGeometry(150, 150, 64, 64);
+
+            // Material: Wireframe to look like data/grid
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x00f2ff, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15,
+                side: THREE.DoubleSide
+            });
+
+            const terrain = new THREE.Mesh(geometry, material);
+            terrain.rotation.x = -Math.PI / 2; // Lie flat
+            scene.add(terrain);
+
+            // Store original positions for wave animation
+            const positionAttribute = geometry.attributes.position;
+            const originalPositions = positionAttribute.array.slice();
+
+            // Animation Loop
+            let time = 0;
+
+            // Mouse Interaction
+            let mouseX = 0;
+            let mouseY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            const animate = () => {
+                time += 0.02;
+
+                // Animate Vertices to create "Sound Wave" ripples
+                for (let i = 0; i < positionAttribute.count; i++) {
+                    const x = originalPositions[i * 3];
+                    const y = originalPositions[i * 3 + 1]; // Actually Z in 3D space since rotated
+
+                    // Wave formula: Combination of Sines to look like audio frequencies
+                    const wave1 = Math.sin(x * 0.1 + time) * 2;
+                    const wave2 = Math.cos(y * 0.1 + time) * 2;
+                    const mouseInteraction = Math.sin(x * 0.2 + time * 2) * (mouseX * 5);
+
+                    positionAttribute.array[i * 3 + 2] = wave1 + wave2 + mouseInteraction;
+                }
+
+                positionAttribute.needsUpdate = true;
+
+                // Rotate terrain slowly
+                terrain.rotation.z += 0.001;
+
+                // Gentle color shift between Blue and Gold
+                const hue = (Math.sin(time * 0.1) + 1) * 0.5; // 0 to 1
+                material.color.setHSL(0.5 + hue * 0.1, 1, 0.5); // Stays mostly Cyan/Blue range
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+
+            animate();
+
+            // Fade In
+            setTimeout(() => container.style.opacity = 1, 500);
+
+            // Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-                container.appendChild(renderer.domElement);
-
-                const geometry = new THREE.PlaneBufferGeometry(150, 150, 64, 64);
-                
-                const material = new THREE.MeshBasicMaterial({ 
-                    color: 0x00f2ff, 
-                    wireframe: true,
-                    transparent: true,
-                    opacity: 0.15,
-                    side: THREE.DoubleSide
-                });
-
-                const terrain = new THREE.Mesh(geometry, material);
-                terrain.rotation.x = -Math.PI / 2;
-                scene.add(terrain);
-
-                const positionAttribute = geometry.attributes.position;
-                // 古いブラウザや厳格な環境でも安全に配列をクローン
-                const originalPositions = new Float32Array(positionAttribute.array);
-
-                let time = 0;
-                let mouseX = 0;
-                let mouseY = 0;
-                
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-                });
-
-                const animate = () => {
-                    time += 0.02;
-                    
-                    for (let i = 0; i < positionAttribute.count; i++) {
-                        const x = originalPositions[i * 3];
-                        const y = originalPositions[i * 3 + 1]; 
-                        
-                        const wave1 = Math.sin(x * 0.1 + time) * 2;
-                        const wave2 = Math.cos(y * 0.1 + time) * 2;
-                        const mouseInteraction = Math.sin(x * 0.2 + time * 2) * (mouseX * 5);
-                        
-                        positionAttribute.array[i * 3 + 2] = wave1 + wave2 + mouseInteraction;
-                    }
-                    
-                    positionAttribute.needsUpdate = true;
-                    terrain.rotation.z += 0.001;
-                    
-                    const hue = (Math.sin(time * 0.1) + 1) * 0.5;
-                    material.color.setHSL(0.5 + hue * 0.1, 1, 0.5); 
-
-                    renderer.render(scene, camera);
-                    requestAnimationFrame(animate);
-                };
-
-                animate();
-                setTimeout(() => container.style.opacity = 1, 500);
-
-                window.addEventListener('resize', () => {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                });
-            } catch (error) {
-                console.warn("WebGLの初期化に失敗しました。グラフィックをスキップします:", error);
-            }
+            });
         };
 
-        // DOMロード後に実行
-        window.addEventListener('DOMContentLoaded', () => {
-            initThree();
-        });
+        initThree();
 
         // =========================================
         // 2. CURSOR & MAGNETIC EFFECT
         // =========================================
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        
+
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`;
             cursorDot.style.top = `${e.clientY}px`;
-            
+
             cursorOutline.animate({
                 left: `${e.clientX}px`,
                 top: `${e.clientY}px`
@@ -993,7 +1004,7 @@
                 cursorOutline.style.backgroundColor = 'transparent';
                 gsap.to(btn, {x:0, y:0, duration:0.5});
             });
-            
+
             if(!btn.classList.contains('award-header') && !btn.classList.contains('skill-key')) {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
@@ -1058,12 +1069,11 @@
             }
         }
 
+        // Hero Init
         setTimeout(() => {
             const el = document.querySelector('.glitch-text');
-            if(el) {
-                const fx = new TextScramble(el);
-                fx.setText('Asahi Mizutani');
-            }
+            const fx = new TextScramble(el);
+            fx.setText('Asahi Mizutani');
         }, 800);
 
         // Scroll Reveal
@@ -1082,18 +1092,21 @@
         });
 
         // =========================================
-        // 4. ACCORDION (Awards)
+        // 4. ACCORDION (Awards) - Re-enabled
         // =========================================
         document.querySelectorAll('.award-header').forEach(header => {
             header.addEventListener('click', function() {
+                // Toggle active class for icon rotation
                 this.classList.toggle('active');
+
                 const details = this.nextElementSibling;
                 const isOpen = details.style.height !== '' && details.style.height !== '0px';
-                
+
                 if (isOpen) {
                      gsap.to(details, {height: 0, duration: 0.3});
                 } else {
                     gsap.to(details, {height: "auto", duration: 0.4});
+                    // Fade content
                     gsap.fromTo(details.children[0], {opacity:0, y:10}, {opacity:1, y:0, duration:0.3, delay:0.1});
                 }
             });
