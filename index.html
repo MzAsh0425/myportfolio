@@ -8,13 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
     <style>
         /* =========================================
            CORE & RESET
@@ -74,7 +69,7 @@
         }
 
         /* =========================================
-           CUSTOM CURSOR (Conductor's Baton)
+           CUSTOM CURSOR
            ========================================= */
         .cursor-dot {
             width: 6px;
@@ -118,7 +113,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* Titles with Equalizer Effect */
         .section-header {
             margin-bottom: 90px;
             position: relative;
@@ -155,7 +149,7 @@
             gap: 20px;
         }
 
-        /* Animated Equalizer Bars */
+        /* Equalizer Bars */
         .equalizer {
             display: flex;
             align-items: flex-end;
@@ -205,7 +199,6 @@
         }
         .glass-panel:hover::before { opacity: 1; }
 
-        /* Buttons */
         .btn {
             position: relative;
             display: inline-flex;
@@ -297,7 +290,7 @@
         .role-item:last-child::after { display: none; }
 
         /* =========================================
-           ABOUT (Split Layout)
+           ABOUT
            ========================================= */
         .about-grid {
             display: grid;
@@ -353,7 +346,7 @@
         }
 
         /* =========================================
-           SKILLS (Keyboard Layout)
+           SKILLS
            ========================================= */
         .skills-grid {
             display: grid;
@@ -365,7 +358,7 @@
             height: 160px;
             background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--glass-border);
-            border-radius: 0 0 8px 8px; /* Piano key look */
+            border-radius: 0 0 8px 8px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -400,7 +393,7 @@
         .skill-key:hover::before { background: var(--sound-gold); }
 
         /* =========================================
-           AWARDS (Original Structure with New Design)
+           AWARDS
            ========================================= */
         .award-group {
             margin-bottom: 60px;
@@ -464,7 +457,6 @@
             white-space: nowrap;
         }
 
-        /* Badge Variations mapped to Theme */
         .badge-univ { border: 1px solid #fff; color: #fff; background: rgba(255,255,255,0.1); }
         .badge-exp { border: 1px solid var(--cyber-blue); color: var(--cyber-blue); background: rgba(0, 242, 255, 0.1); }
         .badge-intern { border: 1px solid #a0a0ff; color: #a0a0ff; background: rgba(160, 160, 255, 0.1); }
@@ -492,7 +484,7 @@
         }
         
         .award-details-inner {
-            padding: 0 0 25px 180px; /* Aligned with title */
+            padding: 0 0 25px 180px;
         }
 
         /* Responsive */
@@ -503,7 +495,6 @@
             .work-visual { height: 300px; }
             .hero-roles { flex-direction: column; gap: 10px; }
             
-            /* Accordion Mobile */
             .award-header { flex-wrap: wrap; gap: 10px; }
             .award-year { min-width: auto; margin-right: 10px; }
             .award-details-inner { padding: 0 0 20px 0; }
@@ -879,97 +870,97 @@
         &copy; 2025 Asahi Mizutani. Engineered with passion & code.
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <script>
+        // GSAP ScrollTriggerの初期化（これを忘れるとアニメーションが止まることがあります）
+        gsap.registerPlugin(ScrollTrigger);
+
         // =========================================
         // 1. THREE.JS (3D Spectrogram Terrain)
         // =========================================
         const initThree = () => {
-            const container = document.getElementById('canvas-container');
-            const scene = new THREE.Scene();
-            // Camera position slightly elevated
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 20, 60);
-            camera.lookAt(0, 0, 0);
+            try {
+                const container = document.getElementById('canvas-container');
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.set(0, 20, 60);
+                camera.lookAt(0, 0, 0);
 
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(renderer.domElement);
-
-            // Create Terrain Geometry (Plane)
-            const geometry = new THREE.PlaneBufferGeometry(150, 150, 64, 64);
-            
-            // Material: Wireframe to look like data/grid
-            const material = new THREE.MeshBasicMaterial({ 
-                color: 0x00f2ff, 
-                wireframe: true,
-                transparent: true,
-                opacity: 0.15,
-                side: THREE.DoubleSide
-            });
-
-            const terrain = new THREE.Mesh(geometry, material);
-            terrain.rotation.x = -Math.PI / 2; // Lie flat
-            scene.add(terrain);
-
-            // Store original positions for wave animation
-            const positionAttribute = geometry.attributes.position;
-            const originalPositions = positionAttribute.array.slice();
-
-            // Animation Loop
-            let time = 0;
-            
-            // Mouse Interaction
-            let mouseX = 0;
-            let mouseY = 0;
-            
-            window.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
-
-            const animate = () => {
-                time += 0.02;
-                
-                // Animate Vertices to create "Sound Wave" ripples
-                for (let i = 0; i < positionAttribute.count; i++) {
-                    const x = originalPositions[i * 3];
-                    const y = originalPositions[i * 3 + 1]; // Actually Z in 3D space since rotated
-                    
-                    // Wave formula: Combination of Sines to look like audio frequencies
-                    const wave1 = Math.sin(x * 0.1 + time) * 2;
-                    const wave2 = Math.cos(y * 0.1 + time) * 2;
-                    const mouseInteraction = Math.sin(x * 0.2 + time * 2) * (mouseX * 5);
-                    
-                    positionAttribute.array[i * 3 + 2] = wave1 + wave2 + mouseInteraction;
-                }
-                
-                positionAttribute.needsUpdate = true;
-                
-                // Rotate terrain slowly
-                terrain.rotation.z += 0.001;
-                
-                // Gentle color shift between Blue and Gold
-                const hue = (Math.sin(time * 0.1) + 1) * 0.5; // 0 to 1
-                material.color.setHSL(0.5 + hue * 0.1, 1, 0.5); // Stays mostly Cyan/Blue range
-
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
-            };
-
-            animate();
-            
-            // Fade In
-            setTimeout(() => container.style.opacity = 1, 500);
-
-            // Resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+                container.appendChild(renderer.domElement);
+
+                const geometry = new THREE.PlaneBufferGeometry(150, 150, 64, 64);
+                
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x00f2ff, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15,
+                    side: THREE.DoubleSide
+                });
+
+                const terrain = new THREE.Mesh(geometry, material);
+                terrain.rotation.x = -Math.PI / 2;
+                scene.add(terrain);
+
+                const positionAttribute = geometry.attributes.position;
+                // 古いブラウザや厳格な環境でも安全に配列をクローン
+                const originalPositions = new Float32Array(positionAttribute.array);
+
+                let time = 0;
+                let mouseX = 0;
+                let mouseY = 0;
+                
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+                });
+
+                const animate = () => {
+                    time += 0.02;
+                    
+                    for (let i = 0; i < positionAttribute.count; i++) {
+                        const x = originalPositions[i * 3];
+                        const y = originalPositions[i * 3 + 1]; 
+                        
+                        const wave1 = Math.sin(x * 0.1 + time) * 2;
+                        const wave2 = Math.cos(y * 0.1 + time) * 2;
+                        const mouseInteraction = Math.sin(x * 0.2 + time * 2) * (mouseX * 5);
+                        
+                        positionAttribute.array[i * 3 + 2] = wave1 + wave2 + mouseInteraction;
+                    }
+                    
+                    positionAttribute.needsUpdate = true;
+                    terrain.rotation.z += 0.001;
+                    
+                    const hue = (Math.sin(time * 0.1) + 1) * 0.5;
+                    material.color.setHSL(0.5 + hue * 0.1, 1, 0.5); 
+
+                    renderer.render(scene, camera);
+                    requestAnimationFrame(animate);
+                };
+
+                animate();
+                setTimeout(() => container.style.opacity = 1, 500);
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            } catch (error) {
+                console.warn("WebGLの初期化に失敗しました。グラフィックをスキップします:", error);
+            }
         };
 
-        initThree();
+        // DOMロード後に実行
+        window.addEventListener('DOMContentLoaded', () => {
+            initThree();
+        });
 
         // =========================================
         // 2. CURSOR & MAGNETIC EFFECT
@@ -1067,11 +1058,12 @@
             }
         }
 
-        // Hero Init
         setTimeout(() => {
             const el = document.querySelector('.glitch-text');
-            const fx = new TextScramble(el);
-            fx.setText('Asahi Mizutani');
+            if(el) {
+                const fx = new TextScramble(el);
+                fx.setText('Asahi Mizutani');
+            }
         }, 800);
 
         // Scroll Reveal
@@ -1090,13 +1082,11 @@
         });
 
         // =========================================
-        // 4. ACCORDION (Awards) - Re-enabled
+        // 4. ACCORDION (Awards)
         // =========================================
         document.querySelectorAll('.award-header').forEach(header => {
             header.addEventListener('click', function() {
-                // Toggle active class for icon rotation
                 this.classList.toggle('active');
-
                 const details = this.nextElementSibling;
                 const isOpen = details.style.height !== '' && details.style.height !== '0px';
                 
@@ -1104,7 +1094,6 @@
                      gsap.to(details, {height: 0, duration: 0.3});
                 } else {
                     gsap.to(details, {height: "auto", duration: 0.4});
-                    // Fade content
                     gsap.fromTo(details.children[0], {opacity:0, y:10}, {opacity:1, y:0, duration:0.3, delay:0.1});
                 }
             });
